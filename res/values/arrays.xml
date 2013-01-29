@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="locations">
+		<item>Show Progress</item>
+		<item>Movie Watchlists</item>
+		<item>Show Watchlists</item>
+		<item>Episode Watchlists</item>
+		<item>Lists</item>
+	</string-array>
+
+</resources>
