@@ -98,7 +98,6 @@ public class MainActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         switch(itemPosition) {
         	case 0:
-        		Log.d("MainActivity", "Case 1");
         		if(currItem.fragment == null) {
         			currItem.fragment = ShowProgressFragment_.newInstance();
         		}
