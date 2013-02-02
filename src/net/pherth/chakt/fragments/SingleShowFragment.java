@@ -2,6 +2,7 @@ package net.pherth.chakt.fragments;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.List;
 
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleEpisodeActivity_;
@@ -25,6 +26,7 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -38,6 +40,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
+import com.jakewharton.trakt.entities.TvShowProgress;
 import com.jakewharton.trakt.entities.TvShowSeason;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -68,6 +71,8 @@ public class SingleShowFragment extends SherlockFragment {
 	ImageView headerimage;		
 	@ViewById
 	TextView ratingsvalue;
+	@ViewById
+	ProgressBar progressBar;
 	@ViewById
 	StickyListHeadersListView seasonlist;
 	
@@ -116,8 +121,6 @@ public class SingleShowFragment extends SherlockFragment {
 		ratingsvalue.setText(show.ratings.percentage + "% (" + show.ratings.votes + " " + getString(R.string.votes) + ")");
 		descriptiontext.setText(show.overview);
 		
-		
-		
 		ImageLoader loader = ImageLoader.getInstance();
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -132,6 +135,8 @@ public class SingleShowFragment extends SherlockFragment {
 	@Background
 	void loadDetails() {
 		show = tw.showService().summary(show.tvdbId).extended().fire();
+		TvShow showprogress = tw.userService().progressWatched(tw.username).title(show.title).fire().get(0);
+		show.progress = showprogress.progress;
 		displayDetails();
 	}
 		
@@ -142,7 +147,7 @@ public class SingleShowFragment extends SherlockFragment {
 			adapter.addAll(season.episodes.episodes);
 		}
 		adapter.notifyDataSetChanged();
-		Log.d(show.title, String.valueOf(adapter.getCount()));
+		progressBar.setProgress(show.progress.percentage);
 	}
 	
 }
