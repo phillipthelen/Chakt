@@ -48,7 +48,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 
 @EFragment(R.layout.fragment_single_show)
-public class SingleShowFragment extends SherlockFragment {
+public class SingleShowFragment extends SingleBaseFragment {
 	
 	TvShow show;
 	TraktWrapper tw;

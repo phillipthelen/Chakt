@@ -29,7 +29,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 
 @EFragment(R.layout.fragment_single_episode)
-public class SingleEpisodeFragment extends SherlockFragment {
+public class SingleEpisodeFragment extends SingleBaseFragment {
 	
 	TvShowEpisode episode;
 	
