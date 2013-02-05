@@ -35,6 +35,7 @@ import com.actionbarsherlock.view.Menu;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.NonConfigurationInstance;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
@@ -45,16 +46,23 @@ public class MainActivity
 	
 	private final List<ItemInfo> mItems = new ArrayList<ItemInfo>();
 	
+	@NonConfigurationInstance
+	ItemInfo currItem;
+	
+	Boolean newCreated = true;
+	
 	class ItemInfo {
         private final String tag;
         private final Class<?> clss;
         private final Bundle args;
         private SherlockFragment fragment;
+        private final Integer position;
 
-        ItemInfo(String _tag, Class<?> _class, Bundle _args) {
+        ItemInfo(String _tag, Class<?> _class, Bundle _args, Integer _position) {
             tag = _tag;
             clss = _class;
             args = _args;
+            position = _position;
         }
     }
 	
@@ -84,19 +92,23 @@ public class MainActivity
         list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         getSupportActionBar().setListNavigationCallbacks(list, this);
-        mItems.add(new ItemInfo("Show Progress", ShowProgressFragment.class, null));
-        mItems.add(new ItemInfo("Movie Watchlists", WatchlistsFragment.class, null));
-        mItems.add(new ItemInfo("Show Watchlists", WatchlistsFragment.class, null));
-        mItems.add(new ItemInfo("Episode Watchlists", WatchlistsFragment.class, null));
-        mItems.add(new ItemInfo("Lists", MovieWatchlistFragment.class, null));
+        mItems.add(new ItemInfo("Show Progress", ShowProgressFragment.class, null, 0));
+        mItems.add(new ItemInfo("Movie Watchlists", WatchlistsFragment.class, null, 1));
+        mItems.add(new ItemInfo("Show Watchlists", WatchlistsFragment.class, null, 2));
+        mItems.add(new ItemInfo("Episode Watchlists", WatchlistsFragment.class, null, 3));
+        mItems.add(new ItemInfo("Lists", MovieWatchlistFragment.class, null, 4));
+        if (currItem != null){
+        	getSupportActionBar().setSelectedNavigationItem(currItem.position);
+        }
     }
-
+    
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
     	Log.d("MainActivity", "Listitem selected");
-    	ItemInfo currItem = mItems.get(itemPosition);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        switch(itemPosition) {
+    	FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    	if (! newCreated || currItem == null) {
+    		newCreated = false;
+        	currItem = mItems.get(itemPosition);switch(itemPosition) {
         	case 0:
         		if(currItem.fragment == null) {
         			currItem.fragment = ShowProgressFragment_.newInstance();
@@ -127,6 +139,7 @@ public class MainActivity
         		}
         		break;
         }
+    	}
         ft.replace(R.id.maincontent, currItem.fragment).commitAllowingStateLoss();
     	return true;
     }
