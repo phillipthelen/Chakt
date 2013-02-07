@@ -3,7 +3,16 @@ package net.pherth.chakt;
 import android.content.Context;
 import android.util.Log;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.EBean;
 import com.jakewharton.trakt.ServiceManager;
+import com.jakewharton.trakt.TraktException;
+import com.jakewharton.trakt.entities.Movie;
+import com.jakewharton.trakt.entities.Response;
+import com.jakewharton.trakt.entities.TvShow;
+import com.jakewharton.trakt.entities.TvShowEpisode;
 
 public class TraktWrapper extends ServiceManager{
 	
@@ -35,5 +44,44 @@ public class TraktWrapper extends ServiceManager{
 		ServiceManager sm = super.setAuthentication(username, password);
 		this.username = username;
 		return sm;
+	}
+	
+	public Boolean switchWatchlistMovie(Movie movie) {
+		try {
+			if (movie.inWatchlist) {
+				traktWrapper.movieService().unwatchlist().movie(movie.imdbId).fire();
+			} else {
+				traktWrapper.movieService().watchlist().movie(movie.imdbId).fire();
+			}
+    	} catch (TraktException e) {
+    		Log.e("ERROR", e.getResponse().error);
+    	}
+		return true;
+	}
+	
+	public Boolean switchWatchlistShow(TvShow show) {
+		try {
+			if (show.inWatchlist) {
+				traktWrapper.showService().unwatchlist().imdbId(show.imdbId).fire();
+			} else {
+				traktWrapper.showService().watchlist().imdbId(show.imdbId).fire();
+			}
+    	} catch (TraktException e) {
+    		Log.e("ERROR", e.getResponse().error);
+    	}
+		return true;
+	}
+	
+	public Boolean switchWatchlistEpisode(TvShow show, TvShowEpisode episode) {
+		try {
+			if (episode.inWatchlist) {
+				traktWrapper.showService().episodeUnwatchlist(show.imdbId).episode(episode.season, episode.number).fire();
+			} else {
+				traktWrapper.showService().episodeWatchlist(show.imdbId).episode(episode.season, episode.number).fire();
+			}
+    	} catch (TraktException e) {
+    		Log.e("ERROR", e.getResponse().error);
+    	}
+		return true;
 	}
 }
