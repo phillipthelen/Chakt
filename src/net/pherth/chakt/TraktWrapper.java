@@ -14,6 +14,9 @@ import com.jakewharton.trakt.entities.Response;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 public class TraktWrapper extends ServiceManager{
 	
 	private static TraktWrapper traktWrapper;
@@ -83,5 +86,24 @@ public class TraktWrapper extends ServiceManager{
     		Log.e("ERROR", e.getResponse().error);
     	}
 		return true;
+	}
+	
+	public Response checkinShow(TvShow show) {
+		//TODO: get newest unwatched episode and checkin
+		return new Response();
+	}
+	
+	public Response checkinMovie(Movie movie) {
+		Response r = this.traktWrapper.movieService().checkin(movie.imdbId).fire();
+		return r;
+	}
+	
+	public Response checkinEpisode(TvShow show, TvShowEpisode episode) {
+		Response r = this.traktWrapper.showService()
+				.checkin(Integer.parseInt(show.tvdbId))
+				.season(episode.season)
+				.episode(episode.number)
+				.fire();
+		return r;
 	}
 }
