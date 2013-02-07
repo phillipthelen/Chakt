@@ -48,4 +48,13 @@
     <string name="seasons">Seasons</string>
     <string name="airs">Airs</string>
     <string name="noair">Doesn\'t air</string>
+    <string name="movieAdd">Movie successfully added</string>
+    <string name="movieRemove">Movie successfully removed</string>
+    <string name="showAdd">Show successfully added</string>
+    <string name="showRemove">Show successfully removed</string>
+    <string name="episodeAdd">Episode successfully added</string>
+    <string name="episodeRemove">Episode successfully removed</string>
+    <string name="movieCheckin">Successfully checked in to movie</string>
+    <string name="showCheckin">Successfully checked in to show</string>
+    <string name="episodeCheckin">Successfully checked in to episode</string>
 </resources>
