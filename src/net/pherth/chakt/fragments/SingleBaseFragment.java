@@ -55,13 +55,17 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 public class SingleBaseFragment extends SherlockFragment {
 	
 	@UiThread
-	void showCrouton(String message, Style style) {
-		Crouton.makeText(getActivity(), message, style).show();
+	void displayCrouton(String message, Style style) {
+		Crouton.showText(getActivity(), message, style);
+	}
+	
+	void displayCrouton(Integer resourceId, Style style) {
+		this.displayCrouton(getString(resourceId), style);
 	}
 	
 	@UiThread
 	void networkErrorCrouton() {
-		showCrouton("There was a network error", Style.ALERT);
+		displayCrouton("There was a network error", Style.ALERT);
 	}
 	
 	@UiThread

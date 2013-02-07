@@ -31,13 +31,14 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 import com.jakewharton.trakt.entities.TvShowProgress;
@@ -45,6 +46,8 @@ import com.jakewharton.trakt.entities.TvShowSeason;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 
 @EFragment(R.layout.fragment_single_show)
@@ -84,7 +87,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 		
 		LinearLayout mTop = (LinearLayout) inflater.inflate(R.layout.fragment_single_show_details, null);
 		ListView seasonlist = (StickyListHeadersListView) view.findViewById(R.id.seasonlist);
-		seasonlist.addHeaderView(mTop);
+		seasonlist.addHeaderView(mTop, null, false);
 		adapter = new ShowSeasonsAdapter(getActivity().getApplicationContext());
 		// Assign adapter to ListView
 		seasonlist.setAdapter(adapter); 
@@ -93,9 +96,10 @@ public class SingleShowFragment extends SingleBaseFragment {
 		seasonlist.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            	TvShowEpisode selEpisode =(TvShowEpisode) (parent.getItemAtPosition(position));
+            	TvShowEpisode selEpisode =(TvShowEpisode) (parent.getItemAtPosition(position-1));
             	Intent recentIntent = new Intent(getActivity().getApplicationContext(), SingleEpisodeActivity_.class);
             	recentIntent.putExtra("episode", selEpisode);
+            	recentIntent.putExtra("show", show);
                 startActivityForResult(recentIntent, 0);
             }
         });
@@ -107,10 +111,30 @@ public class SingleShowFragment extends SingleBaseFragment {
 	
 	@AfterViews
 	void loadData() {
-		Log.d("TEST1", String.valueOf(seasonlist.getHeaderViewsCount()));
-		Log.d("TEST", releasevalue.toString());
 		titletext.setText(show.title);
-		
+		if(show.progress == null) {
+			displayDetails();
+		}
+		loadDetails();
+	}
+	
+	@Background
+	void loadDetails() {
+		show = tw.showService().summary(show.tvdbId).extended().fire();
+		displayDetails();
+		if(show.progress == null) {
+			List<TvShow> shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
+			if(shows.size() > 0) {
+				show.progress = shows.get(0).progress;
+			} else {
+				setUnseen();
+			}
+		}
+		displayEpisodes();
+	}
+	
+	@UiThread
+	void displayDetails() {
 		if(show.airDay != null) {
 		airsvalue.setText(show.airDay.toString() + " " + show.airTime);
 		} else {
@@ -129,25 +153,43 @@ public class SingleShowFragment extends SingleBaseFragment {
 		.cacheOnDisc()
 		.build();
 		loader.displayImage(show.images.fanart, headerimage, options);
-		loadDetails();
-	}
-	
-	@Background
-	void loadDetails() {
-		show = tw.showService().summary(show.tvdbId).extended().fire();
-		TvShow showprogress = tw.userService().progressWatched(tw.username).title(show.title).fire().get(0);
-		show.progress = showprogress.progress;
-		displayDetails();
 	}
 		
 	@UiThread
-	void displayDetails() {
-		Log.d(show.title, show.seasons.toString());
+	void setUnseen() {
+		//TODO: Update GUI to tell that show hasn't been watched yet.
+	}
+	
+	@UiThread
+	void displayEpisodes() {
 		for(TvShowSeason season : show.seasons) {
 			adapter.addAll(season.episodes.episodes);
 		}
-		adapter.notifyDataSetChanged();
+		seasonlist.requestLayout();
 		progressBar.setProgress(show.progress.percentage);
+	}
+	
+	@OptionsItem
+	@Background
+	void watchlist(MenuItem item) {
+		tw.switchWatchlistShow(show);
+		if (show.inWatchlist) {
+			displayCrouton(R.string.showRemove, Style.CONFIRM);
+			show.inWatchlist = false;
+			this.updateMenuIcon(item, R.drawable.ic_watchlist);
+		} else {
+			displayCrouton(R.string.showAdd, Style.CONFIRM);
+			show.inWatchlist = true;
+			this.updateMenuIcon(item, R.drawable.ic_unwatchlist);
+		}
+	}
+	
+	@OptionsItem
+	@Background
+	void checkin(MenuItem item) {
+		tw.checkinShow(show);
+		displayCrouton(R.string.showCheckin, Style.CONFIRM);
+		item.setEnabled(false);
 	}
 	
 }

@@ -97,24 +97,24 @@ public class SingleMovieFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void watchlist(MenuItem item) {
-		try {
-			if (movie.inWatchlist) {
-				tw.movieService().unwatchlist().movie(movie.imdbId).fire();
-				this.showCrouton("The movie was removed", Style.CONFIRM);
-				movie.inWatchlist = false;
-				this.updateMenuIcon(item, R.drawable.ic_watchlist);
-			} else {
-				tw.movieService().watchlist().movie(movie.imdbId).fire();
-				this.showCrouton("The movie was added", Style.CONFIRM);
-				movie.inWatchlist = true;
-				this.updateMenuIcon(item, R.drawable.ic_unwatchlist);
-			}
-    	} catch (TraktException e) {
-    		Log.e("ERROR", e.getResponse().error);
-    		this.networkErrorCrouton();
-    		return;
-    	}
-		
+		tw.switchWatchlistMovie(movie);
+		if (movie.inWatchlist) {
+			displayCrouton(R.string.movieRemove, Style.CONFIRM);
+			movie.inWatchlist = false;
+			this.updateMenuIcon(item, R.drawable.ic_watchlist);
+		} else {
+			displayCrouton(R.string.movieAdd, Style.CONFIRM);
+			movie.inWatchlist = true;
+			this.updateMenuIcon(item, R.drawable.ic_unwatchlist);
+		}
+	}
+	
+	@OptionsItem
+	@Background
+	void checkin(MenuItem item) {
+		tw.checkinMovie(movie);
+		displayCrouton(R.string.movieCheckin, Style.CONFIRM);
+		item.setEnabled(false);
 	}
 	
 }
