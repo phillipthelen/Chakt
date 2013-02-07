@@ -70,9 +70,11 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 		//set header text as first char in name
 		int seasonNumber = this.getItem(position).season;
 		String headerText;
-		if(seasonNumber%2 == 0){
-			headerText = "Season " + String.valueOf(seasonNumber);
-		}else{
+		if(seasonNumber == 0){
+			headerText = "Specials";
+		}else if(seasonNumber == 1){
+			headerText = "Season 1";
+		} else {
 			headerText = "Seasons " + String.valueOf(seasonNumber);
 		}
 		holder.text.setText(headerText);

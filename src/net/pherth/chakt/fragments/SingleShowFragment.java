@@ -2,6 +2,7 @@ package net.pherth.chakt.fragments;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import net.pherth.chakt.R;
@@ -48,7 +49,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
-
+import static net.pherth.chakt.Reversed.reversed;
 
 @EFragment(R.layout.fragment_single_show)
 public class SingleShowFragment extends SingleBaseFragment {
@@ -162,7 +163,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 	
 	@UiThread
 	void displayEpisodes() {
-		for(TvShowSeason season : show.seasons) {
+		for(TvShowSeason season : reversed(show.seasons)) {
 			adapter.addAll(season.episodes.episodes);
 		}
 		seasonlist.requestLayout();
