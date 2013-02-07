@@ -24,13 +24,5 @@ public class SingleMovieActivity extends SherlockFragmentActivity {
 	SingleMovieFragment_ single_movie_fragment;
 	
 	Movie movie;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		 SingleMovieFragment_ single_movie_fragment = new SingleMovieFragment_();
-         movie = (Movie) getIntent().getExtras().get("movie");
-         getSupportFragmentManager().beginTransaction().add(R.id.single_movie_fragment, single_movie_fragment).commit();
-	}
 
 }

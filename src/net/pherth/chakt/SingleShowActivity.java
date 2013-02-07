@@ -26,13 +26,4 @@ public class SingleShowActivity extends SherlockFragmentActivity {
 	SingleShowFragment_ single_show_fragment;
 	
 	TvShow show;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		 SingleShowFragment_ single_show_fragment = new SingleShowFragment_();
-         show = (TvShow) getIntent().getExtras().get("show");
-         getSupportFragmentManager().beginTransaction().add(R.id.single_show_fragment, single_show_fragment).commit();
-	}
-
 }

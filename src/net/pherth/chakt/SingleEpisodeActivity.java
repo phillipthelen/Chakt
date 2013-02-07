@@ -26,13 +26,5 @@ public class SingleEpisodeActivity extends SherlockFragmentActivity {
 	SingleEpisodeFragment_ single_episode_fragment;
 	
 	TvShowEpisode episode;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		 SingleEpisodeFragment_ single_episode_fragment = new SingleEpisodeFragment_();
-         episode = (TvShowEpisode) getIntent().getExtras().get("episode");
-         getSupportFragmentManager().beginTransaction().add(R.id.single_episode_fragment, single_episode_fragment).commit();
-	}
 
 }
