@@ -1,22 +1,14 @@
 package net.pherth.chakt.fragments;
 
-import java.text.SimpleDateFormat;
-
 import net.pherth.chakt.R;
 import net.pherth.chakt.TraktWrapper;
-import net.pherth.chakt.R.layout;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
@@ -24,13 +16,11 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.TvEntity;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
@@ -44,6 +34,8 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 	
 	@ViewById
 	TextView titletext;
+	@ViewById
+	TextView numbertext;
 	@ViewById
 	TextView showvalue;
 	@ViewById
@@ -68,7 +60,8 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 	
 	@AfterViews
 	void loadData() {
-		titletext.setText(episode.season + "x" + episode.number + " " + episode.title);
+		numbertext.setText(episode.season + "x" + episode.number);
+		titletext.setText(episode.title);
 		showvalue.setText(show.title);
 		releasevalue.setText(android.text.format.DateFormat.format("dd.MM.yyyy", episode.firstAired));
 		runtimevalue.setText(String.valueOf(show.runtime));

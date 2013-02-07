@@ -23,8 +23,8 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/headerimage" />
 
-            <TextView
-                android:id="@+id/titletext"
+            <LinearLayout
+                android:id="@+id/headertext"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/headerimage"
@@ -32,10 +32,22 @@
                 android:paddingBottom="6dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="6dp"
-                android:textColor="#ffffff"
-                android:textSize="25sp" />
-
+                android:paddingTop="6dp">
+				<TextView
+                    android:id="@+id/numbertext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="4dp" />
+                <TextView
+                    android:id="@+id/titletext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:textSize="25sp" />
+            </LinearLayout>
         </RelativeLayout>
 
         <TableLayout
@@ -87,7 +99,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:textColor="@color/white" />
-
             </TableRow>
 
             <TableRow
@@ -110,7 +121,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:textColor="@color/white" />
-
             </TableRow>
 
             <TableRow
@@ -134,7 +144,7 @@
                     android:layout_marginBottom="4dp"
                     android:textColor="@color/white" />
             </TableRow>
-            
+
             <TableRow
                 android:id="@+id/tableRow4"
                 android:layout_width="wrap_content"
@@ -161,15 +171,14 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/description"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="10dp" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/descriptiontext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:paddingLeft="16dp"
             android:paddingRight="16dp" />
     </LinearLayout>
