@@ -3,19 +3,12 @@ package net.pherth.chakt;
 import android.content.Context;
 import android.util.Log;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.googlecode.androidannotations.annotations.Background;
-import com.googlecode.androidannotations.annotations.EBean;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.Response;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
-
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class TraktWrapper extends ServiceManager{
 	
@@ -33,7 +26,7 @@ public class TraktWrapper extends ServiceManager{
 
 	private TraktWrapper(Context context) {	
 		this.context = context;
-		this.setApiKey(context.getString(R.string.traktKey));
+		this.setApiKey(this.context.getString(R.string.traktKey));
 	}
 	
 	public static TraktWrapper create(Context context) {
@@ -94,12 +87,12 @@ public class TraktWrapper extends ServiceManager{
 	}
 	
 	public Response checkinMovie(Movie movie) {
-		Response r = this.traktWrapper.movieService().checkin(movie.imdbId).fire();
+		Response r = traktWrapper.movieService().checkin(movie.imdbId).fire();
 		return r;
 	}
 	
 	public Response checkinEpisode(TvShow show, TvShowEpisode episode) {
-		Response r = this.traktWrapper.showService()
+		Response r = traktWrapper.showService()
 				.checkin(Integer.parseInt(show.tvdbId))
 				.season(episode.season)
 				.episode(episode.number)
