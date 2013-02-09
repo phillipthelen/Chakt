@@ -52,6 +52,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 import static net.pherth.chakt.Reversed.reversed;
 
 @EFragment(R.layout.fragment_single_show)
+@OptionsMenu(R.menu.activity_single)
 public class SingleShowFragment extends SingleBaseFragment {
 	
 	TvShow show;

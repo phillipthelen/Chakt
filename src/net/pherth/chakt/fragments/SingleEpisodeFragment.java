@@ -14,6 +14,7 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.entities.TvEntity;
@@ -26,6 +27,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 
 @EFragment(R.layout.fragment_single_episode)
+@OptionsMenu(R.menu.activity_single)
 public class SingleEpisodeFragment extends SingleBaseFragment {
 	
 	TvShow show;
