@@ -28,7 +28,7 @@ import com.jakewharton.trakt.entities.Movie;
 
 @EFragment(R.layout.fragment_baselist)
 @OptionsMenu(R.menu.activity_main)
-public class MovieWatchlistFragment extends SherlockFragment {
+public class MovieWatchlistFragment extends TraktFragment {
 
 	
 	TraktWrapper tw;
@@ -72,15 +72,18 @@ public class MovieWatchlistFragment extends SherlockFragment {
 	
 	@Background
 	void getProgress() {
+		setIndeterminateProgress(true);
 		List<Movie> movies;
 		try {
 			movies = (ArrayList<Movie>) tw.userService().watchlistMovies(tw.username).fire();
 		} catch (TraktException e) {
 			tw.handleError(e, getActivity());
+			setIndeterminateProgress(false);
 			return;
 		}
 
 		notifyDataset(movies);
+		setIndeterminateProgress(false);
 	}
 	
 	@UiThread

@@ -12,7 +12,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 
 @EFragment(R.layout.fragment_single_show)
-public class SingleBaseFragment extends SherlockFragment {
+public class SingleBaseFragment extends TraktFragment {
 	
 	@UiThread
 	void displayCrouton(String message, Style style) {
@@ -21,11 +21,6 @@ public class SingleBaseFragment extends SherlockFragment {
 	
 	void displayCrouton(Integer resourceId, Style style) {
 		this.displayCrouton(getString(resourceId), style);
-	}
-	
-	@UiThread
-	void networkErrorCrouton() {
-		displayCrouton("There was a network error", Style.ALERT);
 	}
 	
 	@UiThread

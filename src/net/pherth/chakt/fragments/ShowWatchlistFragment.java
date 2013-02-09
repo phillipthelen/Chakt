@@ -29,7 +29,7 @@ import com.jakewharton.trakt.entities.TvShow;
 
 @EFragment(R.layout.fragment_baselist)
 @OptionsMenu(R.menu.activity_main)
-public class ShowWatchlistFragment extends SherlockFragment {
+public class ShowWatchlistFragment extends TraktFragment {
 
 	TraktWrapper tw;
 	@ViewById
@@ -69,15 +69,18 @@ public class ShowWatchlistFragment extends SherlockFragment {
 	
 	@Background
 	void getProgress() {
+		setIndeterminateProgress(true);
 		List<TvShow> shows;
 		try {
 			shows = (ArrayList<TvShow>) tw.userService().watchlistShows(tw.username).fire();
 		} catch (TraktException e) {
 			tw.handleError(e, getActivity());
+			setIndeterminateProgress(false);
 			return;
 		}
 
 		notifyDataset(shows);
+		setIndeterminateProgress(false);
 	}
 	
 	@UiThread

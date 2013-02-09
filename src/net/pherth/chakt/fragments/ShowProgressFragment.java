@@ -30,7 +30,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 @EFragment(R.layout.fragment_baselist)
 @OptionsMenu(R.menu.activity_main)
-public class ShowProgressFragment extends SherlockFragment {
+public class ShowProgressFragment extends TraktFragment {
 
 	TraktWrapper tw;
 	@ViewById
@@ -69,15 +69,18 @@ public class ShowProgressFragment extends SherlockFragment {
 	
 	@Background
 	void getProgress() {
+		setIndeterminateProgress(true);
 		List<TvShow> shows;
 		try {
 			shows = (ArrayList<TvShow>) tw.userService().progressWatched(tw.username).fire();
     	} catch (TraktException e) {
     		tw.handleError(e, getActivity());
+    		setIndeterminateProgress(false);
     		return;
     	}
 
 		notifyDataset(shows);
+		setIndeterminateProgress(false);
 	}
 	
 	@UiThread
@@ -87,6 +90,7 @@ public class ShowProgressFragment extends SherlockFragment {
 	}
 	
 	@OptionsItem
+	@UiThread
 	void refresh(MenuItem item) {
 		getProgress();
 	}

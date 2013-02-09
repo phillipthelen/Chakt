@@ -116,10 +116,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 	
 	@Background
 	void loadDetails() {
+		setIndeterminateProgress(true);
 		try {
 			show = tw.showService().summary(show.tvdbId).extended().fire();
 		} catch (TraktException e) {
 			tw.handleError(e, getActivity());
+			setIndeterminateProgress(false);
 			return;
 		}
 		displayDetails();
@@ -132,6 +134,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 			}*/
 		}
 		displayEpisodes();
+		setIndeterminateProgress(false);
 	}
 	
 	@UiThread
