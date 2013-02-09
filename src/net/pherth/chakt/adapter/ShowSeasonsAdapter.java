@@ -1,29 +1,15 @@
 package net.pherth.chakt.adapter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import net.pherth.chakt.R;
-import net.pherth.chakt.R.id;
-import net.pherth.chakt.R.layout;
-
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
-import com.jakewharton.trakt.TraktEntity;
-import com.jakewharton.trakt.entities.MediaBase;
-import com.jakewharton.trakt.entities.Movie;
-import com.jakewharton.trakt.entities.TvShowEpisode;
-import com.jakewharton.trakt.entities.TvShowSeason;
-
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
+import com.jakewharton.trakt.entities.TvShowEpisode;
 
 public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements StickyListHeadersAdapter {
 

@@ -1,55 +1,43 @@
 package net.pherth.chakt.fragments;
 
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Collections;
+import static net.pherth.chakt.Reversed.reversed;
+
 import java.util.List;
 
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleEpisodeActivity_;
-import net.pherth.chakt.SingleShowActivity_;
-import net.pherth.chakt.R.layout;
 import net.pherth.chakt.TraktWrapper;
-import net.pherth.chakt.adapter.BaselistAdapter;
 import net.pherth.chakt.adapter.ShowSeasonsAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageSwitcher;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
-import com.jakewharton.trakt.entities.TvShowProgress;
 import com.jakewharton.trakt.entities.TvShowSeason;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
-import static net.pherth.chakt.Reversed.reversed;
 
 @EFragment(R.layout.fragment_single_show)
 @OptionsMenu(R.menu.activity_single)
@@ -125,12 +113,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 		show = tw.showService().summary(show.tvdbId).extended().fire();
 		displayDetails();
 		if(show.progress == null) {
-			List<TvShow> shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
+			/*List<TvShow> shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
 			if(shows.size() > 0) {
 				show.progress = shows.get(0).progress;
 			} else {
 				setUnseen();
-			}
+			}*/
 		}
 		displayEpisodes();
 	}
@@ -168,7 +156,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 			adapter.addAll(season.episodes.episodes);
 		}
 		seasonlist.requestLayout();
-		progressBar.setProgress(show.progress.percentage);
+		//progressBar.setProgress(show.progress.percentage);
 	}
 	
 	@OptionsItem

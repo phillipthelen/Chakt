@@ -1,8 +1,6 @@
 package net.pherth.chakt.adapter;
 
 import net.pherth.chakt.R;
-import net.pherth.chakt.adapter.ShowSeasonsAdapter.HeaderViewHolder;
-import net.pherth.chakt.adapter.ShowSeasonsAdapter.ViewHolder;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.TextView;
 
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 import com.jakewharton.trakt.entities.TvShow;
-import com.jakewharton.trakt.entities.TvShowEpisode;
 
 public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements StickyListHeadersAdapter {
 

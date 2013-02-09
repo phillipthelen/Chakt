@@ -1,26 +1,16 @@
 package net.pherth.chakt.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.pherth.chakt.R;
 import net.pherth.chakt.TraktWrapper;
-import net.pherth.chakt.fragments.WatchlistsFragment_;
-import net.pherth.chakt.R.layout;
 import net.pherth.chakt.adapter.WatchlistsFragmentAdapter;
-
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
-import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.jakewharton.trakt.TraktException;
-import com.jakewharton.trakt.entities.Movie;
 import com.viewpagerindicator.TitlePageIndicator;
 
 @EFragment(R.layout.fragment_watchlists)

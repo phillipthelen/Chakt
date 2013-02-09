@@ -2,7 +2,6 @@
 package net.pherth.chakt;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import net.pherth.chakt.fragments.EpisodeWatchlistFragment_;
@@ -12,23 +11,15 @@ import net.pherth.chakt.fragments.ShowProgressFragment;
 import net.pherth.chakt.fragments.ShowProgressFragment_;
 import net.pherth.chakt.fragments.ShowWatchlistFragment_;
 import net.pherth.chakt.fragments.WatchlistsFragment;
-
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.ActionBar.TabListener;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -36,7 +27,6 @@ import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.NonConfigurationInstance;
-import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity

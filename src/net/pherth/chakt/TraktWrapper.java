@@ -3,6 +3,8 @@ package net.pherth.chakt;
 import android.content.Context;
 import android.util.Log;
 
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.EBean;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
@@ -10,6 +12,7 @@ import com.jakewharton.trakt.entities.Response;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 
+@EBean
 public class TraktWrapper extends ServiceManager{
 	
 	private static TraktWrapper traktWrapper;
@@ -24,7 +27,7 @@ public class TraktWrapper extends ServiceManager{
 		return traktWrapper;
 	}
 
-	private TraktWrapper(Context context) {	
+	public TraktWrapper(Context context) {	
 		this.context = context;
 		this.setApiKey(this.context.getString(R.string.traktKey));
 	}
@@ -42,7 +45,8 @@ public class TraktWrapper extends ServiceManager{
 		return sm;
 	}
 	
-	public Boolean switchWatchlistMovie(Movie movie) {
+	@Background
+	public void switchWatchlistMovie(Movie movie) {
 		try {
 			if (movie.inWatchlist) {
 				traktWrapper.movieService().unwatchlist().movie(movie.imdbId).fire();
@@ -52,10 +56,10 @@ public class TraktWrapper extends ServiceManager{
     	} catch (TraktException e) {
     		Log.e("ERROR", e.getResponse().error);
     	}
-		return true;
 	}
-	
-	public Boolean switchWatchlistShow(TvShow show) {
+
+	@Background
+	public void switchWatchlistShow(TvShow show) {
 		try {
 			if (show.inWatchlist) {
 				traktWrapper.showService().unwatchlist().imdbId(show.imdbId).fire();
@@ -65,10 +69,10 @@ public class TraktWrapper extends ServiceManager{
     	} catch (TraktException e) {
     		Log.e("ERROR", e.getResponse().error);
     	}
-		return true;
 	}
-	
-	public Boolean switchWatchlistEpisode(TvShow show, TvShowEpisode episode) {
+
+	@Background
+	public void switchWatchlistEpisode(TvShow show, TvShowEpisode episode) {
 		try {
 			if (episode.inWatchlist) {
 				traktWrapper.showService().episodeUnwatchlist(show.imdbId).episode(episode.season, episode.number).fire();
@@ -78,25 +82,24 @@ public class TraktWrapper extends ServiceManager{
     	} catch (TraktException e) {
     		Log.e("ERROR", e.getResponse().error);
     	}
-		return true;
 	}
-	
-	public Response checkinShow(TvShow show) {
+
+	@Background
+	public void checkinShow(TvShow show) {
 		//TODO: get newest unwatched episode and checkin
-		return new Response();
 	}
-	
-	public Response checkinMovie(Movie movie) {
+
+	@Background
+	public void checkinMovie(Movie movie) {
 		Response r = traktWrapper.movieService().checkin(movie.imdbId).fire();
-		return r;
 	}
-	
-	public Response checkinEpisode(TvShow show, TvShowEpisode episode) {
+
+	@Background
+	public void checkinEpisode(TvShow show, TvShowEpisode episode) {
 		Response r = traktWrapper.showService()
 				.checkin(Integer.parseInt(show.tvdbId))
 				.season(episode.season)
 				.episode(episode.number)
 				.fire();
-		return r;
 	}
 }
