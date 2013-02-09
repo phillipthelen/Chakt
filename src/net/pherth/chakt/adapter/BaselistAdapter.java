@@ -1,38 +1,57 @@
 package net.pherth.chakt.adapter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import net.pherth.chakt.R;
-import net.pherth.chakt.R.id;
-import net.pherth.chakt.R.layout;
-import net.pherth.chakt.adapter.ShowSeasonsAdapter.HeaderViewHolder;
-import net.pherth.chakt.adapter.ShowSeasonsAdapter.ViewHolder;
-
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
-import com.jakewharton.trakt.TraktEntity;
-import com.jakewharton.trakt.entities.MediaBase;
-import com.jakewharton.trakt.entities.Movie;
-import com.jakewharton.trakt.entities.TvShowEpisode;
-
+import net.pherth.chakt.SingleEpisodeActivity_;
+import net.pherth.chakt.TraktWrapper;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.EBean;
+import com.jakewharton.trakt.entities.Activity;
+import com.jakewharton.trakt.entities.MediaBase;
+import com.jakewharton.trakt.entities.Movie;
+import com.jakewharton.trakt.entities.Response;
+import com.jakewharton.trakt.entities.TvShow;
+import com.jakewharton.trakt.entities.TvShowEpisode;
+import com.taig.pmc.PopupMenuCompat;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
+@EBean
 public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyListHeadersAdapter {
 
 	LayoutInflater inflater;
+	String type;
+	Context cxt;
+	TraktWrapper tw;
+	FragmentActivity activity;
 	
 	public BaselistAdapter(Context context) {
 	    super(context, R.layout.fragment_baselist);
 	    inflater = LayoutInflater.from(context);
+	    this.cxt = context;
+	    this.tw = TraktWrapper.getInstance();
+	}
+	
+	public void init(FragmentActivity activity, String type) {
+		this.activity = activity;
+		this.type = type;
 	}
 	
 	@Override
@@ -41,21 +60,57 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.listitem_seasonlist, parent, false);
+			convertView = inflater.inflate(R.layout.listitem_baselist, parent, false);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.subinfo = (TextView) convertView.findViewById(R.id.subinfo);
+			holder.contextbutton = (ImageButton) convertView.findViewById(R.id.contextbutton);
+			holder.contextbutton.setFocusable(false);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
 		MediaBase entity = this.getItem(position);
+		holder.contextbutton.setTag(entity);
+		holder.contextbutton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final MediaBase entry = (MediaBase) v.getTag();
+				System.out.println(entry.toString());
+				
+				PopupMenuCompat menu = PopupMenuCompat.newInstance( cxt, v );
+				menu.inflate( R.menu.contextmenu );
+				menu.setOnMenuItemClickListener( new PopupMenuCompat.OnMenuItemClickListener()
+				{
+
+					@Override
+					@Background
+					public boolean onMenuItemClick(android.view.MenuItem item) {
+						switch (item.getItemId()) {
+					        case R.id.checkincontext:
+					        	checkin(entry);
+					        	break;
+					        case R.id.watchlistcontext:
+					        	watchlist(entry);
+					        	break;
+						}
+						
+						
+						return false;
+					}
+				} );
+
+				menu.show();
+			}
+			
+		});
+		
 		
 		holder.title.setText(entity.title);
 		holder.subinfo.setText(entity.year.toString());
 		
 		return convertView;
-
 	}
 
 	@Override
@@ -104,5 +159,42 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 	class ViewHolder {
 		TextView title;
 		TextView subinfo;
+		ImageButton contextbutton;
+	}
+	
+	@Background
+	void checkin(MediaBase entry) {
+		if(type=="movie") {
+			tw.checkinMovie((Movie) entry);
+			Crouton.showText(activity, R.string.movieCheckin, Style.CONFIRM);
+		} else if(type=="show") {
+			tw.checkinShow((TvShow) entry);
+			Crouton.showText(activity, R.string.showCheckin, Style.CONFIRM);
+		} else if(type=="episode") {
+		}
+	}
+	
+	@Background
+	void watchlist(MediaBase entry) {
+		if(type=="movie") {
+			tw.switchWatchlistMovie((Movie) entry);
+			if (entry.inWatchlist) {
+				Crouton.showText(activity, R.string.movieRemove, Style.CONFIRM);
+				entry.inWatchlist = false;
+			} else {
+				Crouton.showText(activity, R.string.movieAdd, Style.CONFIRM);
+				entry.inWatchlist = true;
+			}
+		} else if(type=="show") {
+			tw.switchWatchlistShow((TvShow) entry);
+			if (entry.inWatchlist) {
+				Crouton.showText(activity, R.string.showRemove, Style.CONFIRM);
+				entry.inWatchlist = false;
+			} else {
+				Crouton.showText(activity, R.string.showAdd, Style.CONFIRM);
+				entry.inWatchlist = true;
+			}
+		} else if(type=="episode") {
+		}
 	}
 }

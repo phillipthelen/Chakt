@@ -3,20 +3,15 @@ package net.pherth.chakt.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.pherth.chakt.fragments.MovieWatchlistFragment_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.TraktWrapper;
-import net.pherth.chakt.R.layout;
 import net.pherth.chakt.adapter.BaselistAdapter;
-
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.AfterViews;
@@ -43,6 +38,7 @@ public class MovieWatchlistFragment extends SherlockFragment {
 	void loadFragment() {
 		
 		adapter = new BaselistAdapter(getActivity().getApplicationContext());
+		adapter.init(getActivity(), "movie");
 		
 		// Assign adapter to ListView
 		list.setAdapter(adapter); 
