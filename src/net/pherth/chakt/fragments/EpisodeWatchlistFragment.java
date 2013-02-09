@@ -24,8 +24,10 @@ import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 @EFragment(R.layout.fragment_baselist)
-public class EpisodeWatchlistFragment extends SherlockFragment {
+public class EpisodeWatchlistFragment extends TraktFragment {
 
 	TraktWrapper tw;
 	@ViewById
@@ -69,7 +71,7 @@ public class EpisodeWatchlistFragment extends SherlockFragment {
 		try {
 			episodes = (ArrayList<TvShow>) tw.userService().watchlistEpisodes(tw.username).fire();
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			return;
 		}
 

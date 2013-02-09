@@ -112,7 +112,7 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 		try {
 			tw.switchWatchlistEpisode(show, episode);
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			return;
 		}
 		if (episode.inWatchlist) {
@@ -132,7 +132,7 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 		try {
 			tw.checkinEpisode(show, episode);
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			return;
 		}
 		displayCrouton(R.string.episodeCheckin, Style.CONFIRM);

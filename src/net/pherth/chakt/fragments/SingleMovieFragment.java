@@ -85,7 +85,7 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		try {
 			tw.switchWatchlistMovie(movie);
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			return;
 		}
 		if (movie.inWatchlist) {
@@ -105,7 +105,7 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		try {
 			tw.checkinMovie(movie);
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			return;
 		}
 		displayCrouton(R.string.movieCheckin, Style.CONFIRM);

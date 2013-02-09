@@ -99,10 +99,11 @@ public class TraktWrapper extends ServiceManager{
 				.fire();
 	}
 	
-	public void handleError(TraktException e, FragmentActivity activity) {
+	
+	public Integer handleError(TraktException e, FragmentActivity activity) {
 		System.out.println(e.getMessage());
 		System.out.println(e.getResponse());
-		traktWrapper.displayCrouton(activity, R.string.nonetwork, Style.ALERT);
+		return R.string.nonetwork;
 	}
 	
 	

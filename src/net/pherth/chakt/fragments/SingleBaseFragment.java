@@ -15,15 +15,6 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 public class SingleBaseFragment extends TraktFragment {
 	
 	@UiThread
-	void displayCrouton(String message, Style style) {
-		Crouton.showText(getActivity(), message, style);
-	}
-	
-	void displayCrouton(Integer resourceId, Style style) {
-		this.displayCrouton(getString(resourceId), style);
-	}
-	
-	@UiThread
 	void updateMenuIcon(MenuItem item, Integer id) {
 		item.setIcon(id);
 	}

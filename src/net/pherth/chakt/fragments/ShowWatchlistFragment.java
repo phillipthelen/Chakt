@@ -27,6 +27,8 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.TvShow;
 
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 @EFragment(R.layout.fragment_baselist)
 @OptionsMenu(R.menu.activity_main)
 public class ShowWatchlistFragment extends TraktFragment {
@@ -74,7 +76,7 @@ public class ShowWatchlistFragment extends TraktFragment {
 		try {
 			shows = (ArrayList<TvShow>) tw.userService().watchlistShows(tw.username).fire();
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			setIndeterminateProgress(false);
 			return;
 		}

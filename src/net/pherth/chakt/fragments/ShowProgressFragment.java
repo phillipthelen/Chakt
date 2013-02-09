@@ -8,13 +8,11 @@ import net.pherth.chakt.SingleShowActivity_;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.ShowProgressAdapter;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
@@ -74,7 +72,7 @@ public class ShowProgressFragment extends TraktFragment {
 		try {
 			shows = (ArrayList<TvShow>) tw.userService().progressWatched(tw.username).fire();
     	} catch (TraktException e) {
-    		tw.handleError(e, getActivity());
+    		displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
     		setIndeterminateProgress(false);
     		return;
     	}

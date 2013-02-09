@@ -120,7 +120,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 		try {
 			show = tw.showService().summary(show.tvdbId).extended().fire();
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			setIndeterminateProgress(false);
 			return;
 		}
@@ -179,7 +179,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 		try {
 			tw.switchWatchlistShow(show);
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			return;
 		}
 		if (show.inWatchlist) {
@@ -199,7 +199,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 		try {
 			tw.checkinShow(show);
 		} catch (TraktException e) {
-			tw.handleError(e, getActivity());
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			return;
 		}
 		displayCrouton(R.string.showCheckin, Style.CONFIRM);
