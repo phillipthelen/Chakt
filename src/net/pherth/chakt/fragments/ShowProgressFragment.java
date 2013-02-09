@@ -15,9 +15,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
@@ -26,6 +29,7 @@ import com.jakewharton.trakt.entities.TvShow;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 @EFragment(R.layout.fragment_baselist)
+@OptionsMenu(R.menu.activity_main)
 public class ShowProgressFragment extends SherlockFragment {
 
 	TraktWrapper tw;
@@ -53,7 +57,6 @@ public class ShowProgressFragment extends SherlockFragment {
         });
 		
 		tw = TraktWrapper.getInstance();
-		tw.displayCrouton(getActivity(), R.string.checkin, Style.INFO);
 		getProgress();
 	}
 	
@@ -79,11 +82,13 @@ public class ShowProgressFragment extends SherlockFragment {
 	
 	@UiThread
 	void notifyDataset(List<TvShow> shows) {
-		Log.d("TEST", shows.toString());
-		Log.d("TEST", shows.get(0).progress.percentage.toString());
-		Log.d("TEST", String.valueOf(shows.get(0).year));
 		adapter.addAll(shows);
 		adapter.notifyDataSetChanged();
+	}
+	
+	@OptionsItem
+	void refresh(MenuItem item) {
+		getProgress();
 	}
 	
 }

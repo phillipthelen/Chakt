@@ -14,16 +14,20 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
 
 @EFragment(R.layout.fragment_baselist)
+@OptionsMenu(R.menu.activity_main)
 public class MovieWatchlistFragment extends SherlockFragment {
 
 	
@@ -83,6 +87,11 @@ public class MovieWatchlistFragment extends SherlockFragment {
 	void notifyDataset(List<Movie> movies) {
 		adapter.addAll(movies);
 		adapter.notifyDataSetChanged();
+	}
+	
+	@OptionsItem
+	void refresh(MenuItem item) {
+		getProgress();
 	}
 	
 }

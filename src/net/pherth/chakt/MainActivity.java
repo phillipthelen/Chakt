@@ -27,6 +27,7 @@ import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.NonConfigurationInstance;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity
@@ -68,12 +69,6 @@ public class MainActivity
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
 		
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
     }
     
     private void configureActionBar() {
