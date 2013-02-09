@@ -23,6 +23,8 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.TvShow;
 
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 @EFragment(R.layout.fragment_baselist)
 public class ShowProgressFragment extends SherlockFragment {
 
@@ -51,6 +53,7 @@ public class ShowProgressFragment extends SherlockFragment {
         });
 		
 		tw = TraktWrapper.getInstance();
+		tw.displayCrouton(getActivity(), R.string.checkin, Style.INFO);
 		getProgress();
 	}
 	
@@ -67,6 +70,7 @@ public class ShowProgressFragment extends SherlockFragment {
 		try {
 			shows = (ArrayList<TvShow>) tw.userService().progressWatched(tw.username).fire();
     	} catch (TraktException e) {
+    		tw.handleError(e, getActivity());
     		return;
     	}
 

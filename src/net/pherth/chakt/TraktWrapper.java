@@ -1,10 +1,14 @@
 package net.pherth.chakt;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
+import com.googlecode.androidannotations.annotations.UiThread;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
@@ -12,16 +16,21 @@ import com.jakewharton.trakt.entities.Response;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 @EBean
 public class TraktWrapper extends ServiceManager{
 	
-	private static TraktWrapper traktWrapper;
+	@Bean
+	static TraktWrapper traktWrapper;
+	
 	private Context context;
 	public String username;
 	
 	public static synchronized TraktWrapper getInstance() {	
 		if (traktWrapper == null) {
-			Log.d("TEst", "NULL");
+			
 			return null;
 		}
 		return traktWrapper;
@@ -34,7 +43,6 @@ public class TraktWrapper extends ServiceManager{
 	
 	public static TraktWrapper create(Context context) {
 		traktWrapper = new TraktWrapper(context);
-		Log.d("test", traktWrapper.toString());
 		return traktWrapper;
 	}
 	
@@ -47,41 +55,29 @@ public class TraktWrapper extends ServiceManager{
 	
 	@Background
 	public void switchWatchlistMovie(Movie movie) {
-		try {
-			if (movie.inWatchlist) {
-				traktWrapper.movieService().unwatchlist().movie(movie.imdbId).fire();
-			} else {
-				traktWrapper.movieService().watchlist().movie(movie.imdbId).fire();
-			}
-    	} catch (TraktException e) {
-    		Log.e("ERROR", e.getResponse().error);
-    	}
+		if (movie.inWatchlist) {
+			traktWrapper.movieService().unwatchlist().movie(movie.imdbId).fire();
+		} else {
+			traktWrapper.movieService().watchlist().movie(movie.imdbId).fire();
+		}
 	}
 
 	@Background
 	public void switchWatchlistShow(TvShow show) {
-		try {
-			if (show.inWatchlist) {
-				traktWrapper.showService().unwatchlist().imdbId(show.imdbId).fire();
-			} else {
-				traktWrapper.showService().watchlist().imdbId(show.imdbId).fire();
-			}
-    	} catch (TraktException e) {
-    		Log.e("ERROR", e.getResponse().error);
-    	}
+		if (show.inWatchlist) {
+			traktWrapper.showService().unwatchlist().imdbId(show.imdbId).fire();
+		} else {
+			traktWrapper.showService().watchlist().imdbId(show.imdbId).fire();
+		}
 	}
 
 	@Background
 	public void switchWatchlistEpisode(TvShow show, TvShowEpisode episode) {
-		try {
-			if (episode.inWatchlist) {
-				traktWrapper.showService().episodeUnwatchlist(show.imdbId).episode(episode.season, episode.number).fire();
-			} else {
-				traktWrapper.showService().episodeWatchlist(show.imdbId).episode(episode.season, episode.number).fire();
-			}
-    	} catch (TraktException e) {
-    		Log.e("ERROR", e.getResponse().error);
-    	}
+		if (episode.inWatchlist) {
+			traktWrapper.showService().episodeUnwatchlist(show.imdbId).episode(episode.season, episode.number).fire();
+		} else {
+			traktWrapper.showService().episodeWatchlist(show.imdbId).episode(episode.season, episode.number).fire();
+		}
 	}
 
 	@Background
@@ -101,5 +97,17 @@ public class TraktWrapper extends ServiceManager{
 				.season(episode.season)
 				.episode(episode.number)
 				.fire();
+	}
+	
+	public void handleError(TraktException e, FragmentActivity activity) {
+		System.out.println(e.getMessage());
+		System.out.println(e.getResponse());
+		traktWrapper.displayCrouton(activity, R.string.nonetwork, Style.ALERT);
+	}
+	
+	
+	@UiThread
+	public void displayCrouton(FragmentActivity activity, Integer resourceId, Style style) {
+		Crouton.showText(activity, resourceId, style);
 	}
 }

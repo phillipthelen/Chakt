@@ -57,4 +57,5 @@
     <string name="movieCheckin">Successfully checked in to movie</string>
     <string name="showCheckin">Successfully checked in to show</string>
     <string name="episodeCheckin">Successfully checked in to episode</string>
+    <string name="nonetwork">There is no network connection.</string>
 </resources>

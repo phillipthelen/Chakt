@@ -68,9 +68,10 @@ public class ShowWatchlistFragment extends SherlockFragment {
 		List<TvShow> shows;
 		try {
 			shows = (ArrayList<TvShow>) tw.userService().watchlistShows(tw.username).fire();
-    	} catch (TraktException e) {
-    		return;
-    	}
+		} catch (TraktException e) {
+			tw.handleError(e, getActivity());
+			return;
+		}
 
 		notifyDataset(shows);
 	}

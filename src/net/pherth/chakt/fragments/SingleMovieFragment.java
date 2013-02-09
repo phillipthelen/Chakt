@@ -17,6 +17,7 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -81,7 +82,12 @@ public class SingleMovieFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void watchlist(MenuItem item) {
-		tw.switchWatchlistMovie(movie);
+		try {
+			tw.switchWatchlistMovie(movie);
+		} catch (TraktException e) {
+			tw.handleError(e, getActivity());
+			return;
+		}
 		if (movie.inWatchlist) {
 			displayCrouton(R.string.movieRemove, Style.CONFIRM);
 			movie.inWatchlist = false;
@@ -96,7 +102,12 @@ public class SingleMovieFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void checkin(MenuItem item) {
-		tw.checkinMovie(movie);
+		try {
+			tw.checkinMovie(movie);
+		} catch (TraktException e) {
+			tw.handleError(e, getActivity());
+			return;
+		}
 		displayCrouton(R.string.movieCheckin, Style.CONFIRM);
 		item.setEnabled(false);
 	}

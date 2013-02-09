@@ -71,9 +71,10 @@ public class MovieWatchlistFragment extends SherlockFragment {
 		List<Movie> movies;
 		try {
 			movies = (ArrayList<Movie>) tw.userService().watchlistMovies(tw.username).fire();
-    	} catch (TraktException e) {
-    		return;
-    	}
+		} catch (TraktException e) {
+			tw.handleError(e, getActivity());
+			return;
+		}
 
 		notifyDataset(movies);
 	}

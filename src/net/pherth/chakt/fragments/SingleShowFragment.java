@@ -32,6 +32,7 @@ import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 import com.jakewharton.trakt.entities.TvShowSeason;
@@ -115,7 +116,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 	
 	@Background
 	void loadDetails() {
-		show = tw.showService().summary(show.tvdbId).extended().fire();
+		try {
+			show = tw.showService().summary(show.tvdbId).extended().fire();
+		} catch (TraktException e) {
+			tw.handleError(e, getActivity());
+			return;
+		}
 		displayDetails();
 		if(show.progress == null) {
 			/*List<TvShow> shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
@@ -167,7 +173,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void watchlist(MenuItem item) {
-		tw.switchWatchlistShow(show);
+		try {
+			tw.switchWatchlistShow(show);
+		} catch (TraktException e) {
+			tw.handleError(e, getActivity());
+			return;
+		}
 		if (show.inWatchlist) {
 			displayCrouton(R.string.showRemove, Style.CONFIRM);
 			show.inWatchlist = false;
@@ -182,7 +193,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void checkin(MenuItem item) {
-		tw.checkinShow(show);
+		try {
+			tw.checkinShow(show);
+		} catch (TraktException e) {
+			tw.handleError(e, getActivity());
+			return;
+		}
 		displayCrouton(R.string.showCheckin, Style.CONFIRM);
 		item.setEnabled(false);
 	}
