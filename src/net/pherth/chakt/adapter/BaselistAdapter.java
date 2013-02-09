@@ -22,6 +22,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EBean;
+import com.googlecode.androidannotations.annotations.RootContext;
+import com.googlecode.androidannotations.annotations.UiThread;
 import com.jakewharton.trakt.entities.Activity;
 import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
@@ -38,7 +40,10 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 
 	LayoutInflater inflater;
 	String type;
+	
+	@RootContext
 	Context cxt;
+	
 	TraktWrapper tw;
 	FragmentActivity activity;
 	
@@ -85,7 +90,6 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 				{
 
 					@Override
-					@Background
 					public boolean onMenuItemClick(android.view.MenuItem item) {
 						switch (item.getItemId()) {
 					        case R.id.checkincontext:
@@ -166,10 +170,10 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 	void checkin(MediaBase entry) {
 		if(type=="movie") {
 			tw.checkinMovie((Movie) entry);
-			Crouton.showText(activity, R.string.movieCheckin, Style.CONFIRM);
+			this.displayCrouton(R.string.movieCheckin, Style.CONFIRM);
 		} else if(type=="show") {
 			tw.checkinShow((TvShow) entry);
-			Crouton.showText(activity, R.string.showCheckin, Style.CONFIRM);
+			this.displayCrouton(R.string.showCheckin, Style.CONFIRM);
 		} else if(type=="episode") {
 		}
 	}
@@ -179,22 +183,27 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 		if(type=="movie") {
 			tw.switchWatchlistMovie((Movie) entry);
 			if (entry.inWatchlist) {
-				Crouton.showText(activity, R.string.movieRemove, Style.CONFIRM);
+				this.displayCrouton(R.string.movieRemove, Style.CONFIRM);
 				entry.inWatchlist = false;
 			} else {
-				Crouton.showText(activity, R.string.movieAdd, Style.CONFIRM);
+				this.displayCrouton(R.string.movieAdd, Style.CONFIRM);
 				entry.inWatchlist = true;
 			}
 		} else if(type=="show") {
 			tw.switchWatchlistShow((TvShow) entry);
 			if (entry.inWatchlist) {
-				Crouton.showText(activity, R.string.showRemove, Style.CONFIRM);
+				this.displayCrouton(R.string.showRemove, Style.CONFIRM);
 				entry.inWatchlist = false;
 			} else {
-				Crouton.showText(activity, R.string.showAdd, Style.CONFIRM);
+				this.displayCrouton(R.string.showAdd, Style.CONFIRM);
 				entry.inWatchlist = true;
 			}
 		} else if(type=="episode") {
 		}
+	}
+	
+	@UiThread
+	void displayCrouton(Integer resourceId, Style style) {
+		Crouton.showText(activity, resourceId, style);
 	}
 }

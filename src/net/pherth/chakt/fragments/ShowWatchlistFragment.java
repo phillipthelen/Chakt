@@ -7,6 +7,7 @@ import net.pherth.chakt.R;
 import net.pherth.chakt.SingleShowActivity_;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.BaselistAdapter;
+import net.pherth.chakt.adapter.BaselistAdapter_;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
@@ -29,11 +31,11 @@ public class ShowWatchlistFragment extends SherlockFragment {
 	@ViewById
 	ListView list;
 	
+	@Bean
 	BaselistAdapter adapter;
 	
 	@AfterViews
 	void loadFragment() {
-		adapter = new BaselistAdapter(getActivity().getApplicationContext());
 		adapter.init(getActivity(), "show");
 		
 		// Assign adapter to ListView

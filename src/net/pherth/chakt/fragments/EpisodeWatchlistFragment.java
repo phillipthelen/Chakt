@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
@@ -30,11 +31,11 @@ public class EpisodeWatchlistFragment extends SherlockFragment {
 	@ViewById
 	ListView list;
 	
+	@Bean
 	BaselistAdapter adapter;
 	
 	@AfterViews
 	void loadFragment() {
-		adapter = new BaselistAdapter(getActivity().getApplicationContext());
 		adapter.init(getActivity(), "episode");
 		
 		// Assign adapter to ListView

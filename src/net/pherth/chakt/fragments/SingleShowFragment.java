@@ -26,6 +26,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
@@ -46,6 +47,8 @@ public class SingleShowFragment extends SingleBaseFragment {
 	TvShow show;
 	TraktWrapper tw;
 	Context cxt;
+	
+	@Bean
 	ShowSeasonsAdapter adapter;
 	
 	@ViewById
