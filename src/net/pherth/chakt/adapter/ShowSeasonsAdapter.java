@@ -1,8 +1,10 @@
 package net.pherth.chakt.adapter;
 
 import net.pherth.chakt.R;
+import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.BaselistAdapter.ViewHolder;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +16,40 @@ import android.widget.TextView;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EBean;
+import com.googlecode.androidannotations.annotations.RootContext;
+import com.googlecode.androidannotations.annotations.UiThread;
 import com.jakewharton.trakt.entities.MediaBase;
+import com.jakewharton.trakt.entities.Movie;
+import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 import com.taig.pmc.PopupMenuCompat;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 @EBean
-public class ShowSeasonsAdapter extends BaselistAdapter {
+public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements StickyListHeadersAdapter {
 
 	
 	private LayoutInflater inflater;
+	
+	@RootContext
+	Context cxt;
 
+	TraktWrapper tw;
+	FragmentActivity activity;
+	TvShow show;
+	
 	public ShowSeasonsAdapter(Context context) {
-	    super(context);
+	    super(context, R.layout.fragment_baselist);
 	    inflater = LayoutInflater.from(context);
+	    this.cxt = context;
+	    this.tw = TraktWrapper.getInstance();
+	}
+	
+	public void init(FragmentActivity activity, TvShow show) {
+		this.activity = activity;
+		this.show = show;
 	}
 	
 	@Override
@@ -45,14 +68,13 @@ public class ShowSeasonsAdapter extends BaselistAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		MediaBase entity = this.getItem(position);
+		TvShowEpisode entity = this.getItem(position);
 		holder.contextbutton.setTag(entity);
 		holder.contextbutton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				final MediaBase entry = (MediaBase) v.getTag();
-				System.out.println(entry.toString());
+				final TvShowEpisode entry = (TvShowEpisode) v.getTag();
 				
 				PopupMenuCompat menu = PopupMenuCompat.newInstance( cxt, v );
 				menu.inflate( R.menu.contextmenu );
@@ -82,9 +104,74 @@ public class ShowSeasonsAdapter extends BaselistAdapter {
 		
 		
 		holder.title.setText(entity.title);
-		holder.subinfo.setText(entity.year.toString());
 		
 		return convertView;
 	}
 
+
+	@Override public View getHeaderView(int position, View convertView, ViewGroup parent) {
+		HeaderViewHolder holder;
+		if (convertView == null) {
+			holder = new HeaderViewHolder();
+			convertView = inflater.inflate(R.layout.listitem_seasonlist_header, parent, false);
+			holder.text = (TextView) convertView.findViewById(R.id.text);
+			convertView.setTag(holder);
+		} else {
+			holder = (HeaderViewHolder) convertView.getTag();
+		}
+
+		//set header text as first char in name
+		int seasonNumber = this.getItem(position).season;
+		String headerText;
+		if(seasonNumber == 0){
+			headerText = "Specials";
+		}else if(seasonNumber == 1){
+			headerText = "Season 1";
+		} else {
+			headerText = "Seasons " + String.valueOf(seasonNumber);
+		}
+		holder.text.setText(headerText);
+
+		return convertView;
+	}
+
+	//remember that these have to be static, postion=1 should walys return the same Id that is.
+	@Override
+	public long getHeaderId(int position) {
+		//return the first character of the country as ID because this is what headers are based upon
+		return this.getItem(position).season;
+	}
+	
+	class HeaderViewHolder {
+		TextView text;
+	}
+	
+	class ViewHolder {
+		TextView title;
+		TextView subinfo;
+		ImageButton contextbutton;
+	}
+	
+	@Background
+	void checkin(TvShowEpisode entry) {
+		tw.checkinEpisode(show, entry);
+		this.displayCrouton(R.string.episodeCheckin, Style.CONFIRM);
+	}
+	
+	@Background
+	void watchlist(TvShowEpisode entry) {
+		tw.switchWatchlistEpisode(show, entry);
+		if (entry.inWatchlist) {
+			this.displayCrouton(R.string.episodeRemove, Style.CONFIRM);
+			entry.inWatchlist = false;
+		} else {
+			this.displayCrouton(R.string.episodeAdd, Style.CONFIRM);
+			entry.inWatchlist = true;
+		}
+	}
+	
+	@UiThread
+	void displayCrouton(Integer resourceId, Style style) {
+		Crouton.showText(activity, resourceId, style);
+	}
 }

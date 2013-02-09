@@ -80,8 +80,10 @@ public class SingleShowFragment extends SingleBaseFragment {
 		
 		LinearLayout mTop = (LinearLayout) inflater.inflate(R.layout.fragment_single_show_details, null);
 		ListView seasonlist = (StickyListHeadersListView) view.findViewById(R.id.seasonlist);
+		
+		adapter.init(getActivity(), show);
+		
 		seasonlist.addHeaderView(mTop, null, false);
-		adapter = new ShowSeasonsAdapter(getActivity().getApplicationContext());
 		// Assign adapter to ListView
 		seasonlist.setAdapter(adapter); 
 		seasonlist.setItemsCanFocus(false);
