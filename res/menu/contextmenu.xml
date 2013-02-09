@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/checkincontext"
+        android:orderInCategory="100"
+        android:title="@string/checkin"/>
+    <item
+        android:id="@+id/watchlistcontext"
+        android:icon="@drawable/ic_watchlist"
+        android:title="@string/watchlist"/>
+
+</menu>
