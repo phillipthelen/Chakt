@@ -12,7 +12,6 @@ import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.jakewharton.trakt.entities.TvShow;
 
 @EActivity(R.layout.activity_single_show)
-@OptionsMenu(R.menu.activity_single)
 public class SingleShowActivity extends SherlockFragmentActivity {
 
 	@FragmentById

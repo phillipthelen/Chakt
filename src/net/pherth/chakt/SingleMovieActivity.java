@@ -9,7 +9,6 @@ import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.jakewharton.trakt.entities.Movie;
 
 @EActivity(R.layout.activity_single)
-@OptionsMenu(R.menu.activity_single)
 public class SingleMovieActivity extends SherlockFragmentActivity {
 
 	@FragmentById
