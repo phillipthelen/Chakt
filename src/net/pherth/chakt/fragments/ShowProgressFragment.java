@@ -39,7 +39,7 @@ public class ShowProgressFragment extends TraktFragment {
 	@AfterViews
 	void loadFragment() {
 		adapter = new ShowProgressAdapter(getActivity().getApplicationContext());
-		
+		adapter.init(getActivity());
 		// Assign adapter to ListView
 		list.setAdapter(adapter); 
 		list.setItemsCanFocus(false);

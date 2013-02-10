@@ -45,5 +45,17 @@
         android:layout_below="@+id/subinfo"
         android:textColor="#000000"
         android:layout_marginLeft="5dp"/>
+    
+    <ImageButton
+        android:id="@+id/contextbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/progressLabel"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/abs__spinner_ab_default_holo_light"
+        android:visibility="visible"
+        android:focusable="false"
+        android:clickable="false" />
 
 </RelativeLayout>
