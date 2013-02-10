@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Progressbar" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:maxHeight">16dip</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:progressDrawable">@drawable/progressbar_show</item>
+    </style>
+</resources>

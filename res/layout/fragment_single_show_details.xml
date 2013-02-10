@@ -1,171 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/LinearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical" >
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/header"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-            <ImageView
-                android:id="@+id/headerimage"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/headerimage"
-                android:src="@drawable/placeholder" />
-
-            <TextView
-                android:id="@+id/titletext"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/headerimage"
-                android:background="#aa000000"
-                android:paddingBottom="6dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="6dp"
-                android:textColor="@color/green"
-                android:textSize="25sp" />
-
-        </RelativeLayout>
-
-        <TableLayout
-            android:id="@+id/details"
+        <ImageView
+            android:id="@+id/headerimage"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/darkbg"
-            android:padding="16dp" >
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/headerimage"
+            android:src="@drawable/placeholder" />
 
-            <TableRow
-                android:id="@+id/TableRow01"
+        <TextView
+            android:id="@+id/titletext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/headerimage"
+            android:background="#aa000000"
+            android:paddingBottom="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="6dp"
+            android:textColor="@color/green"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/details"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkbg"
+        android:padding="16dp" >
+
+        <TableRow
+            android:id="@+id/TableRow01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/airslabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="@string/airs"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/airslabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="@string/airs"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/airsvalue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:textColor="@color/white" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow1"
+            <TextView
+                android:id="@+id/airsvalue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/releaselabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="@string/released"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/releasevalue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:textColor="@color/white" />
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow2"
+            <TextView
+                android:id="@+id/releaselabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="@string/released"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/runtimelabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="@string/runtime"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/runtimevalue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:textColor="@color/white" />
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow3"
+            <TextView
+                android:id="@+id/releasevalue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/ratingslabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="@string/rating"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/ratingsvalue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:textColor="@color/white" />
-            </TableRow>
-        </TableLayout>
+            <TextView
+                android:id="@+id/runtimelabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="@string/runtime"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/runtimevalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/ratingslabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="@string/rating"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ratingsvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white" />
+        </TableRow>
+    </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/progresspacker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp" >
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@style/Progressbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/description"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="10dp"
-            
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"  />
-
-        <TextView
-            android:id="@+id/descriptiontext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_marginBottom="32dp" />
+            android:layout_height="20dp"
+            android:indeterminate="false"/>
         
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:id="@+id/progresstext"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/seasons"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"  />
-        
+            android:layout_alignTop="@id/progressBar"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/description"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/descriptiontext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/seasons"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>

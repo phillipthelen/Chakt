@@ -71,6 +71,8 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@ViewById
 	ProgressBar progressBar;
 	@ViewById
+	TextView progresstext;
+	@ViewById
 	StickyListHeadersListView seasonlist;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -126,12 +128,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 		}
 		displayDetails();
 		if(show.progress == null) {
-			/*List<TvShow> shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
+			List<TvShow> shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
 			if(shows.size() > 0) {
 				show.progress = shows.get(0).progress;
 			} else {
 				setUnseen();
-			}*/
+			}
 		}
 		displayEpisodes();
 		setIndeterminateProgress(false);
@@ -170,7 +172,8 @@ public class SingleShowFragment extends SingleBaseFragment {
 			adapter.addAll(season.episodes.episodes);
 		}
 		seasonlist.requestLayout();
-		//progressBar.setProgress(show.progress.percentage);
+		progressBar.setProgress(show.progress.percentage);
+		progresstext.setText(show.progress.completed + "/" + show.progress.aired);
 	}
 	
 	@OptionsItem
@@ -203,7 +206,6 @@ public class SingleShowFragment extends SingleBaseFragment {
 			return;
 		}
 		displayCrouton(R.string.showCheckin, Style.CONFIRM);
-		item.setEnabled(false);
 	}
 	
 }
