@@ -58,6 +58,7 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 			holder.progress = (ProgressBar) convertView.findViewById(R.id.progress);
 			holder.progressLabel = (TextView) convertView.findViewById(R.id.progressLabel);
 			holder.contextbutton = (ImageButton) convertView.findViewById(R.id.contextbutton);
+			holder.contextbutton.setFocusable(false);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
