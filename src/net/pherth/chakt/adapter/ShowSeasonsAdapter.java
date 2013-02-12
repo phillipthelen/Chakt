@@ -18,6 +18,7 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.RootContext;
 import com.googlecode.androidannotations.annotations.UiThread;
+import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.TvShow;
@@ -154,13 +155,23 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 	
 	@Background
 	void checkin(TvShowEpisode entry) {
-		tw.checkinEpisode(show, entry);
+		try {
+			tw.checkinEpisode(show, entry);
+		} catch (TraktException e) {
+			displayCrouton(tw.handleError(e, activity), Style.ALERT);
+			return;
+		}
 		this.displayCrouton(R.string.episodeCheckin, Style.CONFIRM);
 	}
 	
 	@Background
 	void watchlist(TvShowEpisode entry) {
-		tw.switchWatchlistEpisode(show, entry);
+		try {
+			tw.switchWatchlistEpisode(show, entry);
+		} catch (TraktException e) {
+			displayCrouton(tw.handleError(e, activity), Style.ALERT);
+			return;
+		}
 		if (entry.inWatchlist) {
 			this.displayCrouton(R.string.episodeRemove, Style.CONFIRM);
 			entry.inWatchlist = false;
@@ -173,5 +184,10 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 	@UiThread
 	void displayCrouton(Integer resourceId, Style style) {
 		Crouton.showText(activity, resourceId, style);
+	}
+	
+	@UiThread
+	void displayCrouton(String message, Style style) {
+		Crouton.showText(activity, message, style);
 	}
 }
