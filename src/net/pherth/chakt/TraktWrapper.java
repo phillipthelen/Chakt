@@ -9,6 +9,7 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.UiThread;
+import com.jakewharton.apibuilder.ApiException;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
@@ -64,7 +65,7 @@ public class TraktWrapper extends ServiceManager{
 
 	@Background
 	public void switchWatchlistShow(TvShow show) {
-		if (show.inWatchlist) {
+		if (show.inWatchlist != null || show.inWatchlist) {
 			traktWrapper.showService().unwatchlist().imdbId(show.imdbId).fire();
 		} else {
 			traktWrapper.showService().watchlist().imdbId(show.imdbId).fire();
@@ -88,6 +89,9 @@ public class TraktWrapper extends ServiceManager{
 	@Background
 	public void checkinMovie(Movie movie) {
 		Response r = traktWrapper.movieService().checkin(movie.imdbId).fire();
+		if(r.status.equals("failure")) {
+			throw new TraktException("None", null, new ApiException("checkinfailed"), r);
+		}
 	}
 
 	@Background
@@ -97,13 +101,19 @@ public class TraktWrapper extends ServiceManager{
 				.season(episode.season)
 				.episode(episode.number)
 				.fire();
+		if(r.status.equals("failure")) {
+			throw new TraktException("None", null, new ApiException("checkinfailed"), r);
+		}
 	}
 	
 	
-	public Integer handleError(TraktException e, FragmentActivity activity) {
+	public String handleError(TraktException e, FragmentActivity activity) {
 		System.out.println(e.getMessage());
 		System.out.println(e.getResponse());
-		return R.string.nonetwork;
+		if(e.getCause().getMessage().equals("checkinfailed")) {
+			return e.getMessage();
+		}
+		else return context.getString(R.string.nonetwork);
 	}
 	
 	
