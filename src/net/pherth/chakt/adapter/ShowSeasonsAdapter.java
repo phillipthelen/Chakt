@@ -104,7 +104,7 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 		});
 		
 		
-		holder.title.setText(entity.title);
+		holder.title.setText(entity.number + ". " + entity.title);
 		
 		return convertView;
 	}
