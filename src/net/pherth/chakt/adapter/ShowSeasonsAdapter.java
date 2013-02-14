@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
@@ -59,10 +60,11 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.listitem_baselist, parent, false);
+			convertView = inflater.inflate(R.layout.listitem_seasonlist, parent, false);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.subinfo = (TextView) convertView.findViewById(R.id.subinfo);
 			holder.contextbutton = (ImageButton) convertView.findViewById(R.id.contextbutton);
+			holder.seenicon = (ImageView) convertView.findViewById(R.id.seenicon);
 			holder.contextbutton.setFocusable(false);
 			convertView.setTag(holder);
 		} else {
@@ -105,7 +107,11 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 		
 		
 		holder.title.setText(entity.number + ". " + entity.title);
-		
+		if(entity.watched) {
+			holder.seenicon.setVisibility(View.VISIBLE);
+		} else {
+			holder.seenicon.setVisibility(View.GONE);
+		}
 		return convertView;
 	}
 
@@ -151,6 +157,7 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 		TextView title;
 		TextView subinfo;
 		ImageButton contextbutton;
+		ImageView seenicon;
 	}
 	
 	@Background

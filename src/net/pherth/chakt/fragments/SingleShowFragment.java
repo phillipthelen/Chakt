@@ -128,7 +128,14 @@ public class SingleShowFragment extends SingleBaseFragment {
 		}
 		displayDetails();
 		if(show.progress == null) {
-			List<TvShow> shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
+			List<TvShow> shows;
+			try {
+				shows = tw.userService().progressWatched(tw.username).title(show.tvdbId).fire();
+			} catch(TraktException e) {
+				displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
+				setIndeterminateProgress(false);
+				return;
+			}
 			if(shows.size() > 0) {
 				show.progress = shows.get(0).progress;
 			} else {
@@ -142,7 +149,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@UiThread
 	void displayDetails() {
 		if(show.airDay != null) {
-		airsvalue.setText(show.airDay.toString() + " " + show.airTime);
+			airsvalue.setText(show.airDay.toString() + " " + show.airTime);
 		} else {
 			airsvalue.setText(getString(R.string.noair));
 		}

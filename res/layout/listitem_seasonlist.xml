@@ -7,26 +7,47 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:minHeight="48dp">
-    <TextView
-        android:id="@+id/subinfo"
+
+    <ImageView
+        android:id="@+id/seenicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title"
-        android:gravity="center_vertical"
-        android:textColor="#222222"
-        android:textSize="13sp" />
+        android:src="@drawable/ic_seen" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/seenicon"
         android:gravity="center_vertical"
         android:textColor="#000000"
         android:textSize="17sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/subinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/seenicon"
+        android:gravity="center_vertical"
+        android:textColor="#222222"
+        android:textSize="13sp" />
 
+    
+    <ImageButton
+        android:id="@+id/contextbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/abs__spinner_ab_default_holo_light"
+        android:visibility="visible"
+        android:focusable="false"
+        android:clickable="false" />
+    
 </RelativeLayout>
