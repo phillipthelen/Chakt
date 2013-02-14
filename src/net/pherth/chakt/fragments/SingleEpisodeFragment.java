@@ -52,6 +52,8 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 	@ViewById
 	ImageView headerimage;
 	@ViewById
+	ImageView episodeimage;
+	@ViewById
 	TextView ratingsvalue;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +82,8 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 		.build();
 		
 		loader.displayImage(show.images.fanart, headerimage, options);
+		
+		loader.displayImage(episode.images.screen, episodeimage, options);
 		
 		loadDetails();
 	}

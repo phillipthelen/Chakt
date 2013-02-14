@@ -21,7 +21,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/headerimage" />
+                android:contentDescription="@string/headerimage"
+                android:src="@drawable/placeholder" />
+            
+            
 
             <LinearLayout
                 android:id="@+id/headertext"
@@ -48,6 +51,16 @@
                     android:textColor="@color/green"
                     android:textSize="25sp" />
             </LinearLayout>
+            
+            <ImageView
+                android:id="@+id/episodeimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/headertext"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/headerimage" />
         </RelativeLayout>
 
         <TableLayout
