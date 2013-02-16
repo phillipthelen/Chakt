@@ -1,8 +1,11 @@
 package net.pherth.chakt.fragments;
 
+import net.pherth.chakt.LoginActivity_;
+import net.pherth.chakt.MainActivity_;
 import net.pherth.chakt.R;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.EFragment;
@@ -36,7 +39,10 @@ public class TraktFragment extends SherlockFragment {
 		builder.setMessage(R.string.authfailed);
 		builder.setPositiveButton(R.string.correctPassword, new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
-	               // User clicked OK button
+	        	   Intent recentIntent = new Intent(getActivity().getApplicationContext(), LoginActivity_.class);
+	               startActivityForResult(recentIntent, 0);
+	               //Crouton.makeText(recentIntent, "Login successfull!", Style.CONFIRM).show();
+	               getActivity().finish();
 	           }
 	       });
 	builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

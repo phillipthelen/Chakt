@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.inject.Inject;
+import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
@@ -32,6 +33,7 @@ public class LoginActivity extends Activity {
 	@Inject ProgressDialog mProgressDialog;
 
 	TraktWrapper tw;
+	SharedPreferences sharedPref;
 	
 	@Inject Context context;
 	
@@ -52,6 +54,18 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
         tw = TraktWrapper.getInstance();
+        sharedPref = this.getSharedPreferences("Chakt", 0);
+	}
+	
+	
+	@AfterViews
+	public void loadAuth() {
+		if(sharedPref.getString("username", null) != null) {
+        	mUsername = sharedPref.getString("username", null);
+        	mPassword = sharedPref.getString("password", null);
+        	mUsernameView.setText(mUsername);
+        	mPasswordView.setText(mPassword);
+        }
 	}
 	
 	/**
@@ -116,7 +130,6 @@ public class LoginActivity extends Activity {
     	String status = r.status;
     	Log.i("LoginActivity", status);
     	if (status.equals("success")) {
-    		SharedPreferences sharedPref = this.getSharedPreferences("Chakt", 0);
     		SharedPreferences.Editor editor = sharedPref.edit();
     	      editor.putString("username", mUsername);
     	      editor.putString("password", mPassword);

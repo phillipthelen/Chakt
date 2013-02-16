@@ -60,10 +60,14 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		releasevalue.setText(android.text.format.DateFormat.format("dd.MM.yyyy", movie.released));
 		runtimevalue.setText(movie.runtime.toString() + " " + getString(R.string.minutes));
 		ratingsvalue.setText(movie.ratings.percentage + "% (" + movie.ratings.votes + " " + getString(R.string.votes) + ")");
-		if(movie.watched) {
-			playsvalue.setText(movie.plays.toString() + " " + getString(R.string.times));
+		if(movie.watched == null) {
+			spawnWrongAuthDialog();
 		} else {
-			playsvalue.setText(R.string.notplayed);
+			if(movie.watched) {
+				playsvalue.setText(movie.plays.toString() + " " + getString(R.string.times));
+			} else {
+				playsvalue.setText(R.string.notplayed);
+			}
 		}
 		descriptiontext.setText(movie.overview);
 		
@@ -78,9 +82,7 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		Log.d("SingleMovieFragment", movie.images.fanart);
 		loader.displayImage(movie.images.fanart, headerimage, options);
 		
-		if(movie.inWatchlist == null) {
-			spawnWrongAuthDialog();
-		}
+		
 	}
 	
 	@OptionsItem
