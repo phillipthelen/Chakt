@@ -77,6 +77,10 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		
 		Log.d("SingleMovieFragment", movie.images.fanart);
 		loader.displayImage(movie.images.fanart, headerimage, options);
+		
+		if(movie.inWatchlist == null) {
+			spawnWrongAuthDialog();
+		}
 	}
 	
 	@OptionsItem

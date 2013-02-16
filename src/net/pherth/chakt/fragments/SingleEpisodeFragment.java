@@ -98,6 +98,9 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 			return;
 		}
 		episode = entity.episode;
+		if(episode.inWatchlist == null) {
+			spawnWrongAuthDialog();
+		}
 		displayDetails();
 	}
 	

@@ -1,5 +1,9 @@
 package net.pherth.chakt.fragments;
 
+import net.pherth.chakt.R;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
@@ -25,4 +29,21 @@ public class TraktFragment extends SherlockFragment {
 		this.displayCrouton(getString(resourceId), style);
 	}
 	
+	
+	@UiThread
+	void spawnWrongAuthDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setMessage(R.string.authfailed);
+		builder.setPositiveButton(R.string.correctPassword, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	               // User clicked OK button
+	           }
+	       });
+	builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	               // User cancelled the dialog
+	           }
+	       });
+		AlertDialog dialog = builder.create();
+	}
 }

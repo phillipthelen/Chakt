@@ -8,7 +8,9 @@ import net.pherth.chakt.R;
 import net.pherth.chakt.SingleEpisodeActivity_;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.ShowSeasonsAdapter;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -125,6 +127,9 @@ public class SingleShowFragment extends SingleBaseFragment {
 			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 			setIndeterminateProgress(false);
 			return;
+		}
+		if(show.inWatchlist == null) {
+			spawnWrongAuthDialog();
 		}
 		displayDetails();
 		if(show.progress == null) {
