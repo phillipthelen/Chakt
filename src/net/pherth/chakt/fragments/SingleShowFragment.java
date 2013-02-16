@@ -152,6 +152,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 	}
 	
 	@UiThread
+	@Override
+	void spawnWrongAuthDialog() {
+		super.spawnWrongAuthDialog();
+	}
+	
+	@UiThread
 	void displayDetails() {
 		if(show.airDay != null) {
 			airsvalue.setText(show.airDay.toString() + " " + show.airTime);

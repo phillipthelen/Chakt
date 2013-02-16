@@ -105,6 +105,12 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 	}
 	
 	@UiThread
+	@Override
+	void spawnWrongAuthDialog() {
+		super.spawnWrongAuthDialog();
+	}
+	
+	@UiThread
 	void displayDetails() {
 		if(episode.watched) {
 			playsvalue.setText(episode.plays.toString() + " " + getString(R.string.times));
