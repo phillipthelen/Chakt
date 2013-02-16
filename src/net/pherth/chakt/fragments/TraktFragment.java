@@ -41,9 +41,10 @@ public class TraktFragment extends SherlockFragment {
 	       });
 	builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
-	               // User cancelled the dialog
+	               dialog.dismiss();
 	           }
 	       });
 		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 }
