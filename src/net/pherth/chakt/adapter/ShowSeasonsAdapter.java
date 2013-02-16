@@ -107,10 +107,12 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 		
 		
 		holder.title.setText(entity.number + ". " + entity.title);
-		if(entity.watched) {
-			holder.seenicon.setVisibility(View.VISIBLE);
-		} else {
-			holder.seenicon.setVisibility(View.GONE);
+		if(entity.watched != null) {
+			if(entity.watched) {
+				holder.seenicon.setVisibility(View.VISIBLE);
+			} else {
+				holder.seenicon.setVisibility(View.GONE);
+			}
 		}
 		return convertView;
 	}

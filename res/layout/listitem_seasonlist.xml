@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/ic_seen" />
+        android:src="@drawable/ic_seen"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/title"
