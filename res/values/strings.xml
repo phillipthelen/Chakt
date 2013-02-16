@@ -58,4 +58,6 @@
     <string name="showCheckin">Successfully checked in to show</string>
     <string name="episodeCheckin">Successfully checked in to episode</string>
     <string name="nonetwork">There is no network connection.</string>
+    <string name="authfailed">There was a problem with authentification. Maybe you changed your password?</string>
+    <string name="correctPassword">Correct Password</string>
 </resources>
