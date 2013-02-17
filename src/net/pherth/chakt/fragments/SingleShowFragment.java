@@ -4,6 +4,7 @@ import static net.pherth.chakt.Reversed.reversed;
 
 import java.util.List;
 
+import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleEpisodeActivity_;
 import net.pherth.chakt.TraktWrapper;
@@ -224,6 +225,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 			return;
 		}
 		displayCrouton(R.string.showCheckin, Style.CONFIRM);
+	}
+	
+	@OptionsItem
+	void menu_settings() {
+		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
+        startActivityForResult(recentIntent, 0);
 	}
 	
 }

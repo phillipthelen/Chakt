@@ -1,7 +1,10 @@
 package net.pherth.chakt.fragments;
 
+import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
+import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.TraktWrapper;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,4 +121,9 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		item.setEnabled(false);
 	}
 	
+	@OptionsItem
+	void menu_settings() {
+		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
+        startActivityForResult(recentIntent, 0);
+	}
 }

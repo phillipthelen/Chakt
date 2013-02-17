@@ -3,6 +3,7 @@ package net.pherth.chakt.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.TraktWrapper;
@@ -99,4 +100,9 @@ public class MovieWatchlistFragment extends TraktFragment {
 		getProgress();
 	}
 	
+	@OptionsItem
+	void menu_settings() {
+		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
+        startActivityForResult(recentIntent, 0);
+	}
 }

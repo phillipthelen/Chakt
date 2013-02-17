@@ -3,6 +3,7 @@ package net.pherth.chakt.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.TraktWrapper;
@@ -18,6 +19,7 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
@@ -82,6 +84,12 @@ public class EpisodeWatchlistFragment extends TraktFragment {
 	void notifyDataset(List<TvShow> episodes) {
 		adapter.addAll(episodes);
 		adapter.notifyDataSetChanged();
+	}
+	
+	@OptionsItem
+	void menu_settings() {
+		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
+        startActivityForResult(recentIntent, 0);
 	}
 	
 }
