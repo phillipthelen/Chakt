@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/authentification">
+        <EditTextPreference android:title="@string/username" android:key="username"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/sorting">
+        <ListPreference android:title="@string/showprogress" android:entries="@array/progresssortinglabels" android:entryValues="@array/progresssortingvalues" android:key="progresssorting"/>
+        <ListPreference android:title="@string/watchlist" android:entries="@array/watchlistsortinglabels" android:entryValues="@array/watchlistsortingvalues" android:key="watchlistsorting"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/behaviour">
+        <CheckBoxPreference android:summaryOn="@string/confirmon" android:title="@string/confirmationdialog" android:summaryOff="@string/confirmoff" android:key="confirm"/>
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>
