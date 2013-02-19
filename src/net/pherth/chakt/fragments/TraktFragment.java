@@ -42,7 +42,6 @@ public class TraktFragment extends SherlockFragment {
 	        	   Intent recentIntent = new Intent(getActivity().getApplicationContext(), LoginActivity_.class);
 	               startActivityForResult(recentIntent, 0);
 	               //Crouton.makeText(recentIntent, "Login successfull!", Style.CONFIRM).show();
-	               getActivity().finish();
 	           }
 	       });
 	builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
