@@ -66,4 +66,5 @@
     <string name="confirmationdialog">Confirmation Dialog</string>
     <string name="confirmon">Checkins have to be confirmed through a dialog</string>
     <string name="confirmoff">Checkins don\'t have to be confirmed through a dialog</string>
+    <string name="tryCheckin">checking in</string>
 </resources>

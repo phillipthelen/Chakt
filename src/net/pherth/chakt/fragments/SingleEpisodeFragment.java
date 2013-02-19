@@ -144,6 +144,7 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void checkin(MenuItem item) {
+		displayCrouton(R.string.tryCheckin, Style.INFO);
 		try {
 			tw.checkinEpisode(show, episode);
 		} catch (TraktException e) {

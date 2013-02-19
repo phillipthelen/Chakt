@@ -111,6 +111,7 @@ public class SingleMovieFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void checkin(MenuItem item) {
+		displayCrouton(R.string.tryCheckin, Style.INFO);
 		try {
 			tw.checkinMovie(movie);
 		} catch (TraktException e) {

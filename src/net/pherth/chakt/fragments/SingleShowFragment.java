@@ -218,6 +218,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void checkin(MenuItem item) {
+		displayCrouton(R.string.tryCheckin, Style.INFO);
 		try {
 			tw.checkinShow(show);
 		} catch (TraktException e) {

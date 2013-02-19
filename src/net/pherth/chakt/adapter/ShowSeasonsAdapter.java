@@ -164,6 +164,7 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 	
 	@Background
 	void checkin(TvShowEpisode entry) {
+		this.displayCrouton(R.string.tryCheckin, Style.INFO);
 		try {
 			tw.checkinEpisode(show, entry);
 		} catch (TraktException e) {
@@ -175,6 +176,11 @@ public class ShowSeasonsAdapter extends ArrayAdapter<TvShowEpisode>  implements 
 	
 	@Background
 	void watchlist(TvShowEpisode entry) {
+		if (entry.inWatchlist) {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		}
 		try {
 			tw.switchWatchlistEpisode(show, entry);
 		} catch (TraktException e) {

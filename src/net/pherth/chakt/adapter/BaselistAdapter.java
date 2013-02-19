@@ -169,6 +169,7 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 	
 	@Background
 	void checkin(MediaBase entry) {
+		this.displayCrouton(R.string.tryCheckin, Style.INFO);
 		if(type=="movie") {
 			try {
 				tw.checkinMovie((Movie) entry);

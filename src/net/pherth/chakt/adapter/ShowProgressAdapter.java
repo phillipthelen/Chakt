@@ -160,6 +160,7 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 	
 	@Background
 	void checkin(TvShow entry) {
+		this.displayCrouton(R.string.tryCheckin, Style.INFO);
 		try {
 			tw.checkinShow((TvShow) entry);
 		} catch (TraktException e) {
