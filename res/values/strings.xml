@@ -67,4 +67,6 @@
     <string name="confirmon">Checkins have to be confirmed through a dialog</string>
     <string name="confirmoff">Checkins don\'t have to be confirmed through a dialog</string>
     <string name="tryCheckin">checking in</string>
+    <string name="tryWatchlistAdd">adding to watchlist</string>
+    <string name="tryWatchlistRemove">removing from watchlist</string>
 </resources>

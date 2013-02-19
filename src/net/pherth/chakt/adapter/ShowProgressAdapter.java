@@ -172,7 +172,11 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 	
 	@Background
 	void watchlist(TvShow entry) {
-		System.out.println(entry.inWatchlist);
+		if (entry.inWatchlist) {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		}
 		try {
 			tw.switchWatchlistShow((TvShow) entry);
 		} catch (TraktException e) {

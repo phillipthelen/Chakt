@@ -198,6 +198,11 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void watchlist(MenuItem item) {
+		if (show.inWatchlist) {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		}
 		try {
 			tw.switchWatchlistShow(show);
 		} catch (TraktException e) {

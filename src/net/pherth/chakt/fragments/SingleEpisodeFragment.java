@@ -124,6 +124,11 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void watchlist(MenuItem item) {
+		if (episode.inWatchlist) {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		}
 		try {
 			tw.switchWatchlistEpisode(show, episode);
 		} catch (TraktException e) {

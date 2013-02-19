@@ -192,6 +192,11 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 	
 	@Background
 	void watchlist(MediaBase entry) {
+		if (entry.inWatchlist) {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		}
 		if(type=="movie") {
 			try {
 				tw.switchWatchlistMovie((Movie) entry);

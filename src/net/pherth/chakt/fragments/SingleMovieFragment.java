@@ -91,6 +91,11 @@ public class SingleMovieFragment extends SingleBaseFragment {
 	@OptionsItem
 	@Background
 	void watchlist(MenuItem item) {
+		if (movie.inWatchlist) {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		}
 		try {
 			tw.switchWatchlistMovie(movie);
 		} catch (TraktException e) {
