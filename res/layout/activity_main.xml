@@ -12,7 +12,7 @@
     </FrameLayout>
 
     <RelativeLayout
-        android:id="@+id/currentlywatching"
+        android:id="@+android:id/currentlywatching"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -23,36 +23,39 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp" >
 
-        <TextView
-            android:id="@+id/currenttitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_RightOf="currentPoster"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+       
         <ImageView
-            android:id="@+id/currentPoster"
+            android:id="@+android:id/currentposter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true" />
 
         <ProgressBar
-            android:id="@+id/currentprogress"
+            android:id="@+android:id/currentprogress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
 
         <TextView
-            android:id="@+id/currentprogresstimestamp"
+            android:id="@+android:id/currentprogresstimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/currenttitle" />
+            android:layout_alignParentTop="true" />
 
+        
+         <TextView
+            android:id="@+android:id/currenttitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toLeftOf="@android:id/currentprogresstimestamp"
+            android:layout_toRightOf="@android:id/currentposter"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
     </RelativeLayout>
 
 </RelativeLayout>

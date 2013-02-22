@@ -16,7 +16,12 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -29,6 +34,7 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.NonConfigurationInstance;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
+import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity
@@ -42,6 +48,8 @@ public class MainActivity
 	ItemInfo currItem;
 	
 	Boolean newCreated = true;
+	
+	TraktWrapper tw;
 	
 	class ItemInfo {
         private final String tag;
@@ -60,17 +68,40 @@ public class MainActivity
 	
 	@Inject Context context;
 	
+	@ViewById
+	RelativeLayout currentlywatching;
+	@ViewById
+	ImageView currentposter;
+	@ViewById
+	TextView currenttitle;
+	
 	@AfterViews
     void afterViews() {
+		checkCurrentlyWatching();
         configureActionBar();
     }
 	
+	private void checkCurrentlyWatching() {
+		if(tw.currentItem == null) {
+			currentlywatching.setVisibility(View.GONE);
+		} else {
+			currentlywatching.setVisibility(View.VISIBLE);
+			currenttitle.setText(tw.currentItem.title);
+			currentlywatching.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+				}
+			});
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		
+		tw = TraktWrapper.getInstance();
     }
     
     private void configureActionBar() {

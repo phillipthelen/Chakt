@@ -14,6 +14,7 @@ import com.jakewharton.apibuilder.ApiException;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.TraktEntity;
 import com.jakewharton.trakt.TraktException;
+import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.Response;
 import com.jakewharton.trakt.entities.TvShow;
@@ -31,8 +32,8 @@ public class TraktWrapper extends ServiceManager{
 	private Context context;
 	public String username;
 	
-	public TraktEntity currentItem;
-	private Class<?> currentItemActivity;
+	public MediaBase currentItem;
+	public Class<?> currentItemActivity;
 	
 	public static synchronized TraktWrapper getInstance() {	
 		if (traktWrapper == null) {
@@ -97,7 +98,7 @@ public class TraktWrapper extends ServiceManager{
 		if(r.status.equals("failure")) {
 			throw new TraktException("None", null, new ApiException("checkinfailed"), r);
 		}
-		traktWrapper.currentItem = (TraktEntity) movie;
+		traktWrapper.currentItem = (MediaBase) movie;
 		traktWrapper.currentItemActivity = SingleMovieActivity.class;
 	}
 
@@ -111,7 +112,7 @@ public class TraktWrapper extends ServiceManager{
 		if(r.status.equals("failure")) {
 			throw new TraktException("None", null, new ApiException("checkinfailed"), r);
 		}
-		traktWrapper.currentItem = (TraktEntity) episode;
+		//traktWrapper.currentItem = (MediaBase) episode;
 		traktWrapper.currentItemActivity = SingleEpisodeActivity.class;
 	}
 	
