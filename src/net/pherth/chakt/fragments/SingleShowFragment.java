@@ -13,7 +13,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -187,9 +189,19 @@ public class SingleShowFragment extends SingleBaseFragment {
 	
 	@UiThread
 	void displayEpisodes() {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		System.out.println(sharedPref.getAll());
+        if(!sharedPref.getBoolean("show_specials", true)) {
+        	//if the season number is 0, it indeed is the specials "season"
+        	if(show.seasons.get(show.seasons.size()-1).season == 0) {
+        		show.seasons.remove(show.seasons.size() - 1);
+        	}
+        }
 		for(TvShowSeason season : reversed(show.seasons)) {
 			adapter.addAll(season.episodes.episodes);
 		}
+
+        
 		seasonlist.requestLayout();
 		progressBar.setProgress(show.progress.percentage);
 		progresstext.setText(show.progress.completed + "/" + show.progress.aired);

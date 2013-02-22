@@ -8,7 +8,8 @@
         <ListPreference android:title="@string/watchlist" android:entries="@array/watchlistsortinglabels" android:entryValues="@array/watchlistsortingvalues" android:key="watchlistsorting"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/behaviour">
-        <CheckBoxPreference android:summaryOn="@string/confirmon" android:title="@string/confirmationdialog" android:summaryOff="@string/confirmoff" android:key="confirm"/>
+        <CheckBoxPreference android:summaryOn="@string/confirmon" android:title="@string/confirmationdialog" android:summaryOff="@string/confirmoff" android:key="confirm" android:defaultValue="true"/>
+        <CheckBoxPreference android:defaultValue="true" android:enabled="true" android:title="@string/show_specials" android:summaryOn="@string/show_specials_label" android:summaryOff="@string/hide_specials" android:key="show_specials"/>
     </PreferenceCategory>
     
 
