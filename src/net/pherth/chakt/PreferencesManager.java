@@ -3,7 +3,7 @@ package net.pherth.chakt;
 import com.googlecode.androidannotations.annotations.sharedpreferences.SharedPref;
 
 @SharedPref
-public interface PreferenceManager {
+public interface PreferencesManager {
 
 
 	String username();

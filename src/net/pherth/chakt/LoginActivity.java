@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -54,7 +55,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
         tw = TraktWrapper.getInstance();
-        sharedPref = this.getSharedPreferences("Chakt", 0);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 	}
 	
 	

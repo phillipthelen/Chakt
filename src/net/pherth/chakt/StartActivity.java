@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -27,10 +28,9 @@ public class StartActivity
         	.build();
 		ImageLoader.getInstance().init(config);
         
-        SharedPreferences settings = getSharedPreferences("Chakt", 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String username = settings.getString("username", "");
-        
-        
+
         if (username.equals("")) {
         	Intent loginIntent = new Intent(context, LoginActivity_.class);
             startActivityForResult(loginIntent, 0);
