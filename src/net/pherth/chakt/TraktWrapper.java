@@ -5,12 +5,14 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.jakewharton.apibuilder.ApiException;
 import com.jakewharton.trakt.ServiceManager;
+import com.jakewharton.trakt.TraktEntity;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.Response;
@@ -28,6 +30,9 @@ public class TraktWrapper extends ServiceManager{
 	
 	private Context context;
 	public String username;
+	
+	public TraktEntity currentItem;
+	private Class<?> currentItemActivity;
 	
 	public static synchronized TraktWrapper getInstance() {	
 		if (traktWrapper == null) {
@@ -92,6 +97,8 @@ public class TraktWrapper extends ServiceManager{
 		if(r.status.equals("failure")) {
 			throw new TraktException("None", null, new ApiException("checkinfailed"), r);
 		}
+		traktWrapper.currentItem = (TraktEntity) movie;
+		traktWrapper.currentItemActivity = SingleMovieActivity.class;
 	}
 
 	@Background
@@ -104,6 +111,8 @@ public class TraktWrapper extends ServiceManager{
 		if(r.status.equals("failure")) {
 			throw new TraktException("None", null, new ApiException("checkinfailed"), r);
 		}
+		traktWrapper.currentItem = (TraktEntity) episode;
+		traktWrapper.currentItemActivity = SingleEpisodeActivity.class;
 	}
 	
 	
