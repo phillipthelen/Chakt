@@ -69,4 +69,5 @@
     <string name="tryCheckin">checking in</string>
     <string name="tryWatchlistAdd">adding to watchlist</string>
     <string name="tryWatchlistRemove">removing from watchlist</string>
+    <string name="unhandledError">An error occured</string>
 </resources>

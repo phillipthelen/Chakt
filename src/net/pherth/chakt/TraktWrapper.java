@@ -113,7 +113,7 @@ public class TraktWrapper extends ServiceManager{
 		if(e.getCause().getMessage().equals("checkinfailed")) {
 			return e.getMessage();
 		}
-		else return context.getString(R.string.nonetwork);
+		else return context.getString(R.string.unhandledError);
 	}
 	
 	
