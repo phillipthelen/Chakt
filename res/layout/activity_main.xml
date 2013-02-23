@@ -18,11 +18,11 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@color/darkbg"
+        android:paddingBottom="5dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp" >
-
+        android:visibility="gone" >
        
         <ImageView
             android:id="@+android:id/currentposter"
