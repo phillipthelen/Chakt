@@ -198,7 +198,13 @@ public class SingleShowFragment extends SingleBaseFragment {
         	}
         }
 		for(TvShowSeason season : reversed(show.seasons)) {
-			adapter.addAll(season.episodes.episodes);
+			if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
+				adapter.addAll(season.episodes.episodes);
+			} else {
+				for(TvShowEpisode episode : season.episodes.episodes) {
+					adapter.add(episode);
+				}
+			}
 		}
 
         

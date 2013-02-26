@@ -88,7 +88,13 @@ public class ShowWatchlistFragment extends TraktFragment {
 	
 	@UiThread
 	void notifyDataset(List<TvShow> shows) {
-		adapter.addAll(shows);
+		if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
+			adapter.addAll(shows);
+		} else {
+			for(TvShow show : shows) {
+				adapter.add(show);
+			}
+		}
 		adapter.notifyDataSetChanged();
 	}
 	

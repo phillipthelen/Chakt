@@ -26,6 +26,7 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
+import com.jakewharton.trakt.entities.TvShow;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
@@ -91,7 +92,13 @@ public class MovieWatchlistFragment extends TraktFragment {
 	
 	@UiThread
 	void notifyDataset(List<Movie> movies) {
-		adapter.addAll(movies);
+		if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
+			adapter.addAll(movies);
+		} else {
+			for(Movie movie : movies) {
+				adapter.add(movie);
+			}
+		}
 		adapter.notifyDataSetChanged();
 	}
 	
