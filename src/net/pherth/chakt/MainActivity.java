@@ -193,7 +193,7 @@ public class MainActivity
         if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
         	  searchwidget(menu);
         } else {
-        	MenuItem searchitem = menu.findItem(R.id.searchcompat);
+        	MenuItem searchitem = menu.findItem(R.id.search);
         	searchitem.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 
 				@Override
