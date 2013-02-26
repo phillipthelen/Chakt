@@ -36,6 +36,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.actionbarsherlock.view.Window;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
@@ -184,12 +185,31 @@ public class MainActivity
       }  
     }  
     
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        MenuItem searchItem = menu.findItem(R.id.search);
+        if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
+        	  searchwidget(menu);
+        } else {
+        	MenuItem searchitem = menu.getItem(R.id.searchcompat);
+        	searchitem.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					onSearchRequested();
+					return true;
+				}
+        		
+        	});
+        }
+        return true;
+    }
+    
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void searchwidget(Menu menu) {
+    	MenuItem searchItem = menu.findItem(R.id.search);
         mSearchView = (SearchView) searchItem.getActionView();
             searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM
                     | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
@@ -203,7 +223,6 @@ public class MainActivity
             SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
             mSearchView.setSearchableInfo(info);
         }
-        return true;
     }
     
     @OptionsItem

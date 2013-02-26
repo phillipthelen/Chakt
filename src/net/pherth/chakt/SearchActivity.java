@@ -45,10 +45,8 @@ public class SearchActivity
 	    Intent intent = getIntent();
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	      String query = intent.getStringExtra(SearchManager.QUERY);
+	      Crouton.showText(this, query, Style.ALERT);
 	      
 	    }
-	    
-	    Crouton.showText(this, "test", Style.ALERT);
-	    System.out.println("test123");
 	}
 }
