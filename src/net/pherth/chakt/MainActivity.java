@@ -11,8 +11,13 @@ import net.pherth.chakt.fragments.ShowProgressFragment;
 import net.pherth.chakt.fragments.ShowProgressFragment_;
 import net.pherth.chakt.fragments.ShowWatchlistFragment_;
 import net.pherth.chakt.fragments.WatchlistsFragment;
+import android.annotation.TargetApi;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -21,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -28,19 +34,25 @@ import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.NonConfigurationInstance;
+import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
+@OptionsMenu(R.menu.activity_main)
 public class MainActivity
     extends SherlockFragmentActivity
     implements OnNavigationListener
 {
+	
+	private SearchView mSearchView;
 	
 	private final List<ItemInfo> mItems = new ArrayList<ItemInfo>();
 	
@@ -171,5 +183,33 @@ public class MainActivity
 
       }  
     }  
+    
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuItem searchItem = menu.findItem(R.id.search);
+        mSearchView = (SearchView) searchItem.getActionView();
+            searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM
+                    | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        if (searchManager != null) {
+            List<SearchableInfo> searchables = searchManager.getSearchablesInGlobalSearch();
+
+            System.out.println(getComponentName());
+            System.out.println(searchManager.getSearchableInfo(getComponentName()).getSearchActivity());
+            SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
+            mSearchView.setSearchableInfo(info);
+        }
+        return true;
+    }
+    
+    @OptionsItem
+	void menu_settings() {
+		Intent recentIntent = new Intent(getApplicationContext(), PreferencesActivity_.class);
+        startActivityForResult(recentIntent, 0);
+	}
 
 }

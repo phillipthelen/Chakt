@@ -28,7 +28,6 @@ import com.jakewharton.trakt.entities.TvShow;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 @EFragment(R.layout.fragment_baselist)
-@OptionsMenu(R.menu.activity_main)
 public class ShowProgressFragment extends TraktFragment {
 
 	TraktWrapper tw;
@@ -92,12 +91,6 @@ public class ShowProgressFragment extends TraktFragment {
 	@UiThread
 	void refresh(MenuItem item) {
 		getProgress();
-	}
-	
-	@OptionsItem
-	void menu_settings() {
-		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
-        startActivityForResult(recentIntent, 0);
 	}
 	
 }
