@@ -22,14 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
             android:name="net.pherth.chakt.LoginActivity_"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+        
         <activity android:name="net.pherth.chakt.MainActivity_"
         android:label="">
+            <meta-data android:name="android.app.default_searchable"
+                   android:value=".SearchActivity_" />
         </activity>
+        
         <activity
             android:name="net.pherth.chakt.SingleMovieActivity_"
             android:label="@string/title_activity_single_movie"
@@ -39,6 +44,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.pherth.chakt.MainActivity_" />
         </activity>
+        
         <activity
             android:name="net.pherth.chakt.SingleShowActivity_"
             android:label="@string/title_activity_single_show"
@@ -48,12 +54,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.pherth.chakt.MainActivity_" />
         </activity>
+        
         <activity android:name="net.pherth.chakt.SingleEpisodeActivity_"
         android:label="@string/title_activity_single_episode">
         </activity>
+        
         <activity android:name="net.pherth.chakt.PreferencesActivity_"
         android:label="@string/title_preferences">
         </activity>
+        
+        <activity android:name=".SearchActivity_" >
+        <intent-filter>
+            <action android:name="android.intent.action.SEARCH" />
+        </intent-filter>
+        <meta-data android:name="android.app.searchable"
+                   android:resource="@xml/searchable"/>
+    </activity>
     </application>
 
 </manifest>
