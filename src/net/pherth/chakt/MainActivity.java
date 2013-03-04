@@ -10,7 +10,6 @@ import net.pherth.chakt.fragments.MovieWatchlistFragment_;
 import net.pherth.chakt.fragments.ShowProgressFragment;
 import net.pherth.chakt.fragments.ShowProgressFragment_;
 import net.pherth.chakt.fragments.ShowWatchlistFragment_;
-import net.pherth.chakt.fragments.WatchlistsFragment;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -123,11 +122,11 @@ public class MainActivity
         list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         getSupportActionBar().setListNavigationCallbacks(list, this);
-        mItems.add(new ItemInfo("Show Progress", ShowProgressFragment.class, null, 0));
-        mItems.add(new ItemInfo("Movie Watchlists", WatchlistsFragment.class, null, 1));
-        mItems.add(new ItemInfo("Show Watchlists", WatchlistsFragment.class, null, 2));
-        mItems.add(new ItemInfo("Episode Watchlists", WatchlistsFragment.class, null, 3));
-        mItems.add(new ItemInfo("Lists", MovieWatchlistFragment.class, null, 4));
+        mItems.add(new ItemInfo("Show Progress", null, null, 0));
+        mItems.add(new ItemInfo("Movie Watchlists", null, null, 1));
+        mItems.add(new ItemInfo("Show Watchlists", null, null, 2));
+        mItems.add(new ItemInfo("Episode Watchlists", null, null, 3));
+        mItems.add(new ItemInfo("Lists", null, null, 4));
         if (currItem != null){
         	getSupportActionBar().setSelectedNavigationItem(currItem.position);
         }
