@@ -42,7 +42,7 @@ public class MovieWatchlistFragment extends TraktFragment {
 	ListView list;
 	
 	@Bean
-	BaselistAdapter adapter;
+	BaseStickylistAdapter adapter;
 	
 	@AfterViews
 	void loadFragment() {

@@ -37,7 +37,7 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 @EBean
-public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyListHeadersAdapter {
+public class BaselistAdapter extends ArrayAdapter<MediaBase> {
 
 	LayoutInflater inflater;
 	String type;
@@ -116,49 +116,6 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase>  implements StickyL
 		holder.subinfo.setText(entity.year.toString());
 		
 		return convertView;
-	}
-
-	@Override
-	public View getHeaderView(int position, View convertView, ViewGroup parent) {
-		HeaderViewHolder holder;
-		if (convertView == null) {
-			holder = new HeaderViewHolder();
-			convertView = inflater.inflate(R.layout.listitem_seasonlist_header, parent, false);
-			holder.text = (TextView) convertView.findViewById(R.id.text);
-			convertView.setTag(holder);
-		} else {
-			holder = (HeaderViewHolder) convertView.getTag();
-		}
-		char headerChar = getHeaderChar(this.getItem(position).title);
-		holder.text.setText(String.valueOf(headerChar));
-
-		return convertView;
-	}
-
-	//remember that these have to be static, postion=1 should walys return the same Id that is.
-	@Override
-	public long getHeaderId(int position) {
-		return getHeaderChar(this.getItem(position).title);
-	}
-	
-	private char getHeaderChar(String title) {
-		char headerChar;
-		//set header text as first char in name
-		
-		if(title.length() > 3) { 
-			if(title.subSequence(0, 3).toString().equalsIgnoreCase("the")) {
-				headerChar = title.subSequence(4, 5).charAt(0);
-			} else {
-				headerChar = title.subSequence(0, 1).charAt(0);
-			}
-		} else {
-			headerChar = title.subSequence(0, 1).charAt(0);
-		}
-		return headerChar;
-	}
-	
-	class HeaderViewHolder {
-		TextView text;
 	}
 
 	class ViewHolder {

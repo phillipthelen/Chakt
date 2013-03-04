@@ -39,7 +39,7 @@ public class ShowWatchlistFragment extends TraktFragment {
 	ListView list;
 	
 	@Bean
-	BaselistAdapter adapter;
+	BaseStickylistAdapter adapter;
 	
 	@AfterViews
 	void loadFragment() {
