@@ -9,6 +9,7 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
+import com.jakewharton.trakt.entities.TvEntity;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 
@@ -19,6 +20,7 @@ import net.pherth.chakt.R;
 import net.pherth.chakt.SingleShowActivity_;
 import net.pherth.chakt.adapter.BaselistAdapter;
 import net.pherth.chakt.adapter.BaselistAdapter_;
+import net.pherth.chakt.adapter.EpisodelistAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,20 +32,20 @@ import android.widget.AdapterView.OnItemClickListener;
 @EFragment(R.layout.fragment_baselist)
 public class SearchEpisodeFragment extends Fragment {
 
-	List<TvShowEpisode> episodes;
+	List<TvEntity> episodes;
 	
 	@ViewById
 	ListView list;
 	
 	@Bean
-	BaselistAdapter adapter;
+	EpisodelistAdapter adapter;
 	
 	@AfterViews
 	public void loadList() {
 		adapter.init(getActivity(), "episode");
 		
 		if(episodes != null) {
-			//adapter.addAll(episodes);
+			adapter.addAll(episodes);
 			adapter.notifyDataSetChanged();
 		}
 		
@@ -59,10 +61,10 @@ public class SearchEpisodeFragment extends Fragment {
 	}
 	
 	@UiThread
-	public void setItems(List<TvShowEpisode> newepisodes) {
+	public void setItems(List<TvEntity> newepisodes) {
 		episodes = newepisodes;
 		if(adapter != null) {
-			//adapter.addAll(episodes);
+			adapter.addAll(episodes);
 			adapter.notifyDataSetChanged();
 		}
 	}

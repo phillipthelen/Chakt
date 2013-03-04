@@ -17,6 +17,7 @@ import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.Response;
+import com.jakewharton.trakt.entities.TvEntity;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 
@@ -116,6 +117,13 @@ public class TraktWrapper extends ServiceManager{
 		traktWrapper.currentItemActivity = SingleEpisodeActivity.class;
 	}
 	
+	public void checkinEpisode(TvEntity entity) {
+		checkinEpisode(entity.show, entity.episode);
+	}
+	
+	public void switchWatchlistEpisode(TvEntity entity) {
+		switchWatchlistEpisode(entity.show, entity.episode);
+	}
 	
 	public String handleError(TraktException e, FragmentActivity activity) {
 		System.out.println(e.getMessage());

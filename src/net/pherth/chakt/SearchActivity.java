@@ -111,7 +111,7 @@ public class SearchActivity
 			return;
 		}
 		System.out.println(episodes);
-		//mTabManager.setData(episodes);
+		mTabManager.setEpisodes(episodes);
 		
 	}
 	
@@ -152,7 +152,7 @@ public class SearchActivity
         private SearchEpisodeFragment_ episodefragment;
         private List<Movie> movies;
         private List<TvShow> shows;
-        private List<TvShowEpisode> episodes;
+        private List<TvEntity> episodes;
         private String lastItem;
         
         static class DummyTabFactory implements TabHost.TabContentFactory {
@@ -231,6 +231,14 @@ public class SearchActivity
         		shows = newshows;
         	} else {
         		showfragment.setItems(newshows);
+        	}
+        }
+        
+        public void setEpisodes(List<TvEntity> newepisodes) {
+        	if(episodefragment == null) {
+        		episodes = newepisodes;
+        	} else {
+        		episodefragment.setItems(newepisodes);
         	}
         }
     }
