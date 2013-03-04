@@ -69,8 +69,10 @@
     <string name="tryCheckin">checking in</string>
     <string name="tryWatchlistAdd">adding to watchlist</string>
     <string name="tryWatchlistRemove">removing from watchlist</string>
-    <string name="unhandledError">An error occured</string>
+    <string name="unhandledError">An error occurred</string>
     <string name="show_specials_label">Specials are listed</string>
     <string name="hide_specials">Specials are hidden</string>
     <string name="show_specials">Display specials in Show View</string>
+    <string name="season">Season</string>
+    <string name="episodes">Episodes</string>
 </resources>

@@ -78,6 +78,10 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@ViewById
 	TextView progresstext;
 	@ViewById
+	TextView seasonvalue;
+	@ViewById
+	TextView episodevalue;
+	@ViewById
 	StickyListHeadersListView seasonlist;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -169,7 +173,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 		}
 		releasevalue.setText(android.text.format.DateFormat.format("dd.MM.yyyy", show.firstAired));
 		runtimevalue.setText(show.runtime.toString() + " " + getString(R.string.minutes));
-		ratingsvalue.setText(show.ratings.percentage + "% (" + show.ratings.votes + " " + getString(R.string.votes) + ")");
+		ratingsvalue.setText(show.ratings.percentage + "%");
 		descriptiontext.setText(show.overview);
 		
 		ImageLoader loader = ImageLoader.getInstance();
@@ -190,8 +194,11 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@UiThread
 	void displayEpisodes() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		System.out.println(sharedPref.getAll());
-        if(!sharedPref.getBoolean("show_specials", true)) {
+		
+		seasonvalue.setText(String.valueOf(show.seasons.size()));
+        episodevalue.setText(String.valueOf(show.progress.aired));
+		
+		if(!sharedPref.getBoolean("show_specials", true)) {
         	//if the season number is 0, it indeed is the specials "season"
         	if(show.seasons.get(show.seasons.size()-1).season == 0) {
         		show.seasons.remove(show.seasons.size() - 1);
