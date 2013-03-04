@@ -6,6 +6,7 @@ import java.util.List;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleShowActivity_;
+import net.pherth.chakt.TraktInterface;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.ShowProgressAdapter;
 import android.content.Intent;
@@ -27,8 +28,8 @@ import com.jakewharton.trakt.entities.TvShow;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-@EFragment(R.layout.fragment_baselist)
-public class ShowProgressFragment extends TraktFragment {
+@EFragment(R.layout.fragment_basestickylist)
+public class ShowProgressFragment extends TraktFragment implements TraktInterface {
 
 	TraktWrapper tw;
 	@ViewById
@@ -66,7 +67,7 @@ public class ShowProgressFragment extends TraktFragment {
 	
 	
 	@Background
-	void getProgress() {
+	public void getProgress() {
 		setIndeterminateProgress(true);
 		List<TvShow> shows;
 		try {

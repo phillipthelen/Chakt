@@ -6,6 +6,7 @@ import java.util.List;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
+import net.pherth.chakt.TraktInterface;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.BaselistAdapter;
 import android.content.Intent;
@@ -28,8 +29,8 @@ import com.jakewharton.trakt.entities.TvShowEpisode;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-@EFragment(R.layout.fragment_baselist)
-public class EpisodeWatchlistFragment extends TraktFragment {
+@EFragment(R.layout.fragment_basestickylist)
+public class EpisodeWatchlistFragment extends TraktFragment implements TraktInterface {
 
 	TraktWrapper tw;
 	@ViewById
@@ -68,7 +69,7 @@ public class EpisodeWatchlistFragment extends TraktFragment {
 	
 	
 	@Background
-	void getProgress() {
+	public void getProgress() {
 		List<TvShow> episodes;
 		try {
 			episodes = (ArrayList<TvShow>) tw.userService().watchlistEpisodes(tw.username).fire();

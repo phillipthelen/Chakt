@@ -6,7 +6,9 @@ import java.util.List;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleShowActivity_;
+import net.pherth.chakt.TraktInterface;
 import net.pherth.chakt.TraktWrapper;
+import net.pherth.chakt.adapter.BaseStickylistAdapter;
 import net.pherth.chakt.adapter.BaselistAdapter;
 import net.pherth.chakt.adapter.BaselistAdapter_;
 import android.content.Intent;
@@ -30,9 +32,8 @@ import com.jakewharton.trakt.entities.TvShow;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-@EFragment(R.layout.fragment_baselist)
-@OptionsMenu(R.menu.activity_main)
-public class ShowWatchlistFragment extends TraktFragment {
+@EFragment(R.layout.fragment_basestickylist)
+public class ShowWatchlistFragment extends TraktFragment implements TraktInterface {
 
 	TraktWrapper tw;
 	@ViewById
@@ -71,7 +72,7 @@ public class ShowWatchlistFragment extends TraktFragment {
 	
 	
 	@Background
-	void getProgress() {
+	public void getProgress() {
 		setIndeterminateProgress(true);
 		List<TvShow> shows;
 		try {
@@ -96,17 +97,6 @@ public class ShowWatchlistFragment extends TraktFragment {
 			}
 		}
 		adapter.notifyDataSetChanged();
-	}
-	
-	@OptionsItem
-	void refresh(MenuItem item) {
-		getProgress();
-	}
-	
-	@OptionsItem
-	void menu_settings() {
-		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
-        startActivityForResult(recentIntent, 0);
 	}
 	
 }

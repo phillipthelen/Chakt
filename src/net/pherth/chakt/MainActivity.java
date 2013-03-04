@@ -229,5 +229,11 @@ public class MainActivity
 		Intent recentIntent = new Intent(getApplicationContext(), PreferencesActivity_.class);
         startActivityForResult(recentIntent, 0);
 	}
+    
+    @OptionsItem
+    void refresh() {
+    	TraktInterface item = (TraktInterface) currItem.fragment;
+    	item.getProgress();
+    }
 
 }

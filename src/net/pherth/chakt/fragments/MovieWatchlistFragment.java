@@ -6,7 +6,9 @@ import java.util.List;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
+import net.pherth.chakt.TraktInterface;
 import net.pherth.chakt.TraktWrapper;
+import net.pherth.chakt.adapter.BaseStickylistAdapter;
 import net.pherth.chakt.adapter.BaselistAdapter;
 import android.content.Intent;
 import android.view.View;
@@ -30,9 +32,8 @@ import com.jakewharton.trakt.entities.TvShow;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-@EFragment(R.layout.fragment_baselist)
-@OptionsMenu(R.menu.activity_main)
-public class MovieWatchlistFragment extends TraktFragment {
+@EFragment(R.layout.fragment_basestickylist)
+public class MovieWatchlistFragment extends TraktFragment implements TraktInterface {
 
 	
 	TraktWrapper tw;
@@ -75,7 +76,7 @@ public class MovieWatchlistFragment extends TraktFragment {
 	
 	
 	@Background
-	void getProgress() {
+	public void getProgress() {
 		setIndeterminateProgress(true);
 		List<Movie> movies;
 		try {
@@ -100,16 +101,5 @@ public class MovieWatchlistFragment extends TraktFragment {
 			}
 		}
 		adapter.notifyDataSetChanged();
-	}
-	
-	@OptionsItem
-	void refresh(MenuItem item) {
-		getProgress();
-	}
-	
-	@OptionsItem
-	void menu_settings() {
-		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
-        startActivityForResult(recentIntent, 0);
 	}
 }
