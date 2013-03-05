@@ -56,7 +56,7 @@ public class SearchEpisodeFragment extends Fragment {
 		list.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            	TvEntity entity =(TvEntity) (parent.getItemAtPosition(position-1));
+            	TvEntity entity =(TvEntity) (parent.getItemAtPosition(position));
             	Intent recentIntent = new Intent(getActivity().getApplicationContext(), SingleEpisodeActivity_.class);
             	recentIntent.putExtra("episode", entity.episode);
             	recentIntent.putExtra("show", entity.show);
