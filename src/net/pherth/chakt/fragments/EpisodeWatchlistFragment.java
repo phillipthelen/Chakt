@@ -5,11 +5,13 @@ import java.util.List;
 
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
+import net.pherth.chakt.SingleEpisodeActivity_;
 import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.TraktInterface;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.BaseStickylistAdapter;
 import net.pherth.chakt.adapter.BaselistAdapter;
+import net.pherth.chakt.adapter.EpisodeStickylistAdapter;
 import net.pherth.chakt.adapter.EpisodelistAdapter;
 import android.content.Intent;
 import android.view.View;
@@ -40,7 +42,7 @@ public class EpisodeWatchlistFragment extends TraktFragment implements TraktInte
 	ListView list;
 	
 	@Bean
-	EpisodelistAdapter adapter;
+	EpisodeStickylistAdapter adapter;
 	
 	@AfterViews
 	void loadFragment() {
@@ -53,9 +55,10 @@ public class EpisodeWatchlistFragment extends TraktFragment implements TraktInte
 		list.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            	TvShowEpisode selEpisode =(TvShowEpisode) (parent.getItemAtPosition(position));
-            	Intent recentIntent = new Intent(getActivity().getApplicationContext(), SingleMovieActivity_.class);
-            	recentIntent.putExtra("episode", selEpisode);
+            	TvEntity entity =(TvEntity) (parent.getItemAtPosition(position));
+            	Intent recentIntent = new Intent(getActivity().getApplicationContext(), SingleEpisodeActivity_.class);
+            	recentIntent.putExtra("episode", entity.episode);
+            	recentIntent.putExtra("show", entity.show);
                 startActivityForResult(recentIntent, 0);
             }
         });
