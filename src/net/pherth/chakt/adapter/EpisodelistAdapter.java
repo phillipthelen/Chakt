@@ -19,6 +19,8 @@ import com.googlecode.androidannotations.annotations.RootContext;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.TvEntity;
+import com.jakewharton.trakt.entities.TvShow;
+import com.jakewharton.trakt.entities.TvShowEpisode;
 import com.taig.pmc.PopupMenuCompat;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -170,9 +172,9 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity>  implements Stick
 	@Background
 	void watchlist(TvEntity entry) {
 		if (entry.episode.inWatchlist) {
-			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
-		} else {
 			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
 		}
 		try {
 			tw.switchWatchlistEpisode(entry);
@@ -192,5 +194,12 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity>  implements Stick
 	@UiThread
 	void displayCrouton(Integer resourceId, Style style) {
 		Crouton.showText(activity, resourceId, style);
+	}
+
+	public void add(TvShow show, TvShowEpisode episode) {
+		TvEntity entity = new TvEntity();
+		entity.show = show;
+		entity.episode = episode;
+		this.add(entity);
 	}
 }

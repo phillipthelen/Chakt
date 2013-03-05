@@ -8,7 +8,9 @@ import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.TraktInterface;
 import net.pherth.chakt.TraktWrapper;
+import net.pherth.chakt.adapter.BaseStickylistAdapter;
 import net.pherth.chakt.adapter.BaselistAdapter;
+import net.pherth.chakt.adapter.EpisodelistAdapter;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +26,7 @@ import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
+import com.jakewharton.trakt.entities.TvEntity;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
 
@@ -37,7 +40,7 @@ public class EpisodeWatchlistFragment extends TraktFragment implements TraktInte
 	ListView list;
 	
 	@Bean
-	BaselistAdapter adapter;
+	EpisodelistAdapter adapter;
 	
 	@AfterViews
 	void loadFragment() {
@@ -82,8 +85,12 @@ public class EpisodeWatchlistFragment extends TraktFragment implements TraktInte
 	}
 	
 	@UiThread
-	void notifyDataset(List<TvShow> episodes) {
-		adapter.addAll(episodes);
+	void notifyDataset(List<TvShow> shows) {
+		for(TvShow show : shows) {
+			for(TvShowEpisode episode : show.episodes) {
+				adapter.add(show, episode);
+			}
+		}
 		adapter.notifyDataSetChanged();
 	}
 	

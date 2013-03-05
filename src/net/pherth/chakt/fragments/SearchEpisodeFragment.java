@@ -17,6 +17,7 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 import net.pherth.chakt.R;
+import net.pherth.chakt.SingleEpisodeActivity_;
 import net.pherth.chakt.SingleShowActivity_;
 import net.pherth.chakt.adapter.BaselistAdapter;
 import net.pherth.chakt.adapter.BaselistAdapter_;
@@ -52,7 +53,16 @@ public class SearchEpisodeFragment extends Fragment {
 		// Assign adapter to ListView
 		list.setAdapter(adapter); 
 		list.setItemsCanFocus(false);
-		
+		list.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            	TvEntity entity =(TvEntity) (parent.getItemAtPosition(position-1));
+            	Intent recentIntent = new Intent(getActivity().getApplicationContext(), SingleEpisodeActivity_.class);
+            	recentIntent.putExtra("episode", entity.episode);
+            	recentIntent.putExtra("show", entity.show);
+                startActivityForResult(recentIntent, 0);
+            }
+        });
 	}
 	
 	@Override
