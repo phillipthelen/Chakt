@@ -147,6 +147,10 @@ public class SingleShowFragment extends SingleBaseFragment {
 				displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
 				setIndeterminateProgress(false);
 				return;
+			} catch(IndexOutOfBoundsException e) {
+				setIndeterminateProgress(false);
+				displayEpisodes();
+				return;
 			}
 			if(shows.size() > 0) {
 				show.progress = shows.get(0).progress;
@@ -224,9 +228,9 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@Background
 	void watchlist(MenuItem item) {
 		if (show.inWatchlist) {
-			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
-		} else {
 			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
+		} else {
+			displayCrouton(R.string.tryWatchlistAdd, Style.INFO);
 		}
 		try {
 			tw.switchWatchlistShow(show);
