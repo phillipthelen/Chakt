@@ -199,7 +199,12 @@ public class SingleShowFragment extends SingleBaseFragment {
 	void displayEpisodes() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		
-		seasonvalue.setText(String.valueOf(show.seasons.size()));
+		if(show.seasons.get(show.seasons.size()-1).season == 0) {
+			seasonvalue.setText(String.valueOf(show.seasons.size()-1));
+    	} else {
+			seasonvalue.setText(String.valueOf(show.seasons.size()));
+    	}
+		
         episodevalue.setText(String.valueOf(show.progress.aired));
 		
 		if(!sharedPref.getBoolean("show_specials", true)) {
