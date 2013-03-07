@@ -89,6 +89,7 @@ public class EpisodeWatchlistFragment extends TraktFragment implements TraktInte
 	
 	@UiThread
 	void notifyDataset(List<TvShow> shows) {
+		adapter.clear();
 		for(TvShow show : shows) {
 			for(TvShowEpisode episode : show.episodes) {
 				adapter.add(show, episode);

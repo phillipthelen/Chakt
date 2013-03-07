@@ -84,6 +84,7 @@ public class ShowProgressFragment extends TraktFragment implements TraktInterfac
 	
 	@UiThread
 	void notifyDataset(List<TvShow> shows) {
+		adapter.clear();
 		if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
 			adapter.addAll(shows);
 		} else {

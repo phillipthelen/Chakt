@@ -93,6 +93,7 @@ public class MovieWatchlistFragment extends TraktFragment implements TraktInterf
 	
 	@UiThread
 	void notifyDataset(List<Movie> movies) {
+		adapter.clear();
 		if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
 			adapter.addAll(movies);
 		} else {
