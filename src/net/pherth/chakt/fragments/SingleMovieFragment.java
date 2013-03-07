@@ -19,6 +19,7 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
+import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.Movie;
@@ -63,15 +64,7 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		releasevalue.setText(android.text.format.DateFormat.format("dd.MM.yyyy", movie.released));
 		runtimevalue.setText(movie.runtime.toString() + " " + getString(R.string.minutes));
 		ratingsvalue.setText(movie.ratings.percentage + "% (" + movie.ratings.votes + " " + getString(R.string.votes) + ")");
-		if(movie.watched == null) {
-			spawnWrongAuthDialog();
-		} else {
-			if(movie.watched) {
-				playsvalue.setText(movie.plays.toString() + " " + getString(R.string.times));
-			} else {
-				playsvalue.setText(R.string.notplayed);
-			}
-		}
+		
 		descriptiontext.setText(movie.overview);
 		
 		ImageLoader loader = ImageLoader.getInstance();
@@ -85,9 +78,36 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		Log.d("SingleMovieFragment", movie.images.fanart);
 		loader.displayImage(movie.images.fanart, headerimage, options);
 		
-		
+		loadDetails();
 	}
 	
+	@Background
+	void loadDetails() {
+		setIndeterminateProgress(true);
+		try {
+			movie = tw.movieService().summary(movie.imdbId).fire();
+		} catch (TraktException e) {
+			displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
+			setIndeterminateProgress(false);
+			return;
+		}
+		setIndeterminateProgress(false);
+		displayDetails();
+	}
+	
+	@UiThread
+	void displayDetails() {
+		if(movie.watched == null) {
+			spawnWrongAuthDialog();
+		} else {
+			if(movie.watched) {
+				playsvalue.setText(movie.plays.toString() + " " + getString(R.string.times));
+			} else {
+				playsvalue.setText(R.string.notplayed);
+			}
+		}
+	}
+
 	@OptionsItem
 	@Background
 	void watchlist(MenuItem item) {
