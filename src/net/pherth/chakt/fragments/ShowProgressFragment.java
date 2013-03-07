@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
@@ -35,11 +36,11 @@ public class ShowProgressFragment extends TraktFragment implements TraktInterfac
 	@ViewById
 	ListView list;
 	
+	@Bean
 	ShowProgressAdapter adapter;
 	
 	@AfterViews
 	void loadFragment() {
-		adapter = new ShowProgressAdapter(getActivity().getApplicationContext());
 		adapter.init(getActivity());
 		// Assign adapter to ListView
 		list.setAdapter(adapter); 

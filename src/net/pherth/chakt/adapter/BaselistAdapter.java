@@ -148,6 +148,9 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase> {
 	
 	@Background
 	void watchlist(MediaBase entry) {
+		if(entry.inWatchlist == null) {
+			entry.inWatchlist = false;
+		}
 		if (entry.inWatchlist) {
 			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
 		} else {

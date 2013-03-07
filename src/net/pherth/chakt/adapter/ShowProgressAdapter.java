@@ -171,6 +171,9 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 	
 	@Background
 	void watchlist(TvShow entry) {
+		if(entry.inWatchlist == null) {
+			entry.inWatchlist = false;
+		}
 		if (entry.inWatchlist) {
 			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
 		} else {

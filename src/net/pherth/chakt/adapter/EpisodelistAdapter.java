@@ -127,6 +127,9 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity> {
 	
 	@Background
 	void watchlist(TvEntity entry) {
+		if(entry.episode.inWatchlist == null) {
+			entry.episode.inWatchlist = false;
+		}
 		if (entry.episode.inWatchlist) {
 			displayCrouton(R.string.tryWatchlistRemove, Style.INFO);
 		} else {
