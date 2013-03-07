@@ -6,16 +6,14 @@
     <string name="title_preferences">Preferences</string>
     <string name="title_activity_main">Chackt</string>
     <string name="search">Search</string>
-    <string name="favorite">Favorite</string>
     <string name="cancel">Cancel</string>
-    <string name="traktLogin">Please enter your Trakt userdata.</string>
     <string name="pleaseWait">Please Wait.</string>
     <string name="loggingin">Trying to log in.</string>
     <string name="traktKey">ed56114bc8efdcd86414ee055027b3d465ac45a8</string>
     <string name="loginInvalid">Invalid Username/Password.</string>
     <string name="emptyAuth">Username/Password can\'t be empty.</string>
     <string name="checkin">Checkin</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Sign in to trakt.tv</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="action_sign_in_register"><b>Sign in</b></string>
