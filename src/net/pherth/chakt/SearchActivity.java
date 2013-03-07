@@ -25,6 +25,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -42,6 +44,7 @@ import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
@@ -242,4 +245,21 @@ public class SearchActivity
         	}
         }
     }
+    
+    @OptionsItem
+	void home() {
+		Intent upIntent = new Intent(this, MainActivity_.class);
+        if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+            // This activity is not part of the application's task, so create a new task
+            // with a synthesized back stack.
+            TaskStackBuilder.from(this)
+                    .addNextIntent(upIntent)
+                    .startActivities();
+            finish();
+        } else {
+            // This activity is part of the application's task, so simply
+            // navigate up to the hierarchical parent activity.
+            NavUtils.navigateUpTo(this, upIntent);
+        }
+	}
 }

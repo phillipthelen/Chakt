@@ -4,6 +4,7 @@ import static net.pherth.chakt.Reversed.reversed;
 
 import java.util.List;
 
+import net.pherth.chakt.MainActivity_;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleEpisodeActivity_;
@@ -16,6 +17,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -271,6 +274,23 @@ public class SingleShowFragment extends SingleBaseFragment {
 	void menu_settings() {
 		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
         startActivityForResult(recentIntent, 0);
+	}
+	
+	@OptionsItem
+	void home() {
+		Intent upIntent = new Intent(getActivity(), MainActivity_.class);
+        if (NavUtils.shouldUpRecreateTask(getActivity(), upIntent)) {
+            // This activity is not part of the application's task, so create a new task
+            // with a synthesized back stack.
+            TaskStackBuilder.from(getActivity())
+                    .addNextIntent(upIntent)
+                    .startActivities();
+            getActivity().finish();
+        } else {
+            // This activity is part of the application's task, so simply
+            // navigate up to the hierarchical parent activity.
+            NavUtils.navigateUpTo(getActivity(), upIntent);
+        }
 	}
 	
 }

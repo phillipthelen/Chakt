@@ -1,11 +1,14 @@
 package net.pherth.chakt.fragments;
 
+import net.pherth.chakt.MainActivity_;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.TraktWrapper;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -151,5 +154,22 @@ public class SingleMovieFragment extends SingleBaseFragment {
 	void menu_settings() {
 		Intent recentIntent = new Intent(getActivity().getApplicationContext(), PreferencesActivity_.class);
         startActivityForResult(recentIntent, 0);
+	}
+	
+	@OptionsItem
+	void home() {
+		Intent upIntent = new Intent(getActivity(), MainActivity_.class);
+        if (NavUtils.shouldUpRecreateTask(getActivity(), upIntent)) {
+            // This activity is not part of the application's task, so create a new task
+            // with a synthesized back stack.
+            TaskStackBuilder.from(getActivity())
+                    .addNextIntent(upIntent)
+                    .startActivities();
+            getActivity().finish();
+        } else {
+            // This activity is part of the application's task, so simply
+            // navigate up to the hierarchical parent activity.
+            NavUtils.navigateUpTo(getActivity(), upIntent);
+        }
 	}
 }

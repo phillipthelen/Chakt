@@ -56,14 +56,17 @@
         </activity>
         
         <activity android:name="net.pherth.chakt.SingleEpisodeActivity_"
+            android:parentActivityName="net.pherth.chakt.SingleEpisodeActivity_"
         android:label="@string/title_activity_single_episode">
         </activity>
         
         <activity android:name="net.pherth.chakt.PreferencesActivity_"
-        android:label="@string/title_preferences">
+        android:label="@string/title_preferences"
+            android:parentActivityName="net.pherth.chakt.MainActivity_">
         </activity>
         
-        <activity android:name=".SearchActivity_" >
+        <activity android:name=".SearchActivity_"
+            android:parentActivityName="net.pherth.chakt.MainActivity_" >
         <intent-filter>
             <action android:name="android.intent.action.SEARCH" />
         </intent-filter>
