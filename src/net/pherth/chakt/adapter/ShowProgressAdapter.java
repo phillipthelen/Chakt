@@ -72,7 +72,6 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 			@Override
 			public void onClick(View v) {
 				final TvShow entry = (TvShow) v.getTag();
-				System.out.println(entry.toString());
 				
 				PopupMenuCompat menu = PopupMenuCompat.newInstance( cxt, v );
 				menu.inflate( R.menu.contextmenu );

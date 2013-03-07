@@ -216,9 +216,6 @@ public class MainActivity
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         if (searchManager != null) {
             List<SearchableInfo> searchables = searchManager.getSearchablesInGlobalSearch();
-
-            System.out.println(getComponentName());
-            System.out.println(searchManager.getSearchableInfo(getComponentName()).getSearchActivity());
             SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
             mSearchView.setSearchableInfo(info);
         }

@@ -83,7 +83,6 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase> {
 			@Override
 			public void onClick(View v) {
 				final MediaBase entry = (MediaBase) v.getTag();
-				System.out.println(entry.toString());
 				
 				PopupMenuCompat menu = PopupMenuCompat.newInstance( cxt, v );
 				menu.inflate( R.menu.contextmenu );

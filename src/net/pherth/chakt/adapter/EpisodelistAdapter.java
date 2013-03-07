@@ -73,7 +73,6 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity> {
 			@Override
 			public void onClick(View v) {
 				final TvEntity entry = (TvEntity) v.getTag();
-				System.out.println(entry.toString());
 				
 				PopupMenuCompat menu = PopupMenuCompat.newInstance( cxt, v );
 				menu.inflate( R.menu.contextmenu );

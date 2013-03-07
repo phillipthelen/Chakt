@@ -126,7 +126,6 @@ public class SearchActivity
 			Crouton.showText(this, tw.handleError(e, this), Style.ALERT);
 			return;
 		}
-		System.out.println(episodes);
 		mTabManager.setEpisodes(episodes);
 		
 	}
@@ -140,7 +139,6 @@ public class SearchActivity
 			Crouton.showText(this, tw.handleError(e, this), Style.ALERT);
 			return;
 		}
-		System.out.println(shows);
 		mTabManager.setShows(shows);
 		
 	}
@@ -155,7 +153,6 @@ public class SearchActivity
 			Crouton.showText(this, tw.handleError(e, this), Style.ALERT);
 			return;
 		}
-		System.out.println(movies);
 		mTabManager.setMovies(movies);
 	}
 
