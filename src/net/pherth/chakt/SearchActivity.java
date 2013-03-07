@@ -15,10 +15,13 @@ import net.pherth.chakt.fragments.SearchShowFragment_;
 import net.pherth.chakt.fragments.ShowProgressFragment;
 import net.pherth.chakt.fragments.ShowProgressFragment_;
 import net.pherth.chakt.fragments.ShowWatchlistFragment_;
+import android.annotation.TargetApi;
 import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -32,6 +35,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.SearchView;
 import android.widget.TabHost;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -40,11 +44,14 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
@@ -56,6 +63,7 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 @EActivity(R.layout.activity_search)
+@OptionsMenu(R.menu.activity_search)
 public class SearchActivity
     extends SherlockFragmentActivity {
 	
@@ -66,8 +74,12 @@ public class SearchActivity
     TabHost mTabHost;
     TabManager mTabManager;
 
+
+	private SearchView mSearchView;
     
     TraktWrapper tw;
+    
+    String query;
     
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +96,7 @@ public class SearchActivity
 	      searchMovies(query);
 	      searchShows(query);
 	      searchEpisodes(query);
+	      this.query = query;
 	    }
 	    
 	}
@@ -243,6 +256,42 @@ public class SearchActivity
         	} else {
         		episodefragment.setItems(newepisodes);
         	}
+        }
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
+        	  searchwidget(menu);
+        } else {
+        	MenuItem searchitem = menu.findItem(R.id.search);
+        	searchitem.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					onSearchRequested();
+					return true;
+				}
+        		
+        	});
+        }
+        return true;
+    }
+    
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void searchwidget(Menu menu) {
+    	MenuItem searchItem = menu.findItem(R.id.search);
+        mSearchView = (SearchView) searchItem.getActionView();
+            searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        if (searchManager != null) {
+            List<SearchableInfo> searchables = searchManager.getSearchablesInGlobalSearch();
+            SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
+            mSearchView.setSearchableInfo(info);
+            mSearchView.setQuery(query, false);
         }
     }
     
