@@ -8,5 +8,6 @@
         android:id="@+id/watchlistcontext"
         android:icon="@drawable/ic_watchlist"
         android:title="@string/watchlist"/>
+    <item android:id="@+id/markseencontext" android:title="@string/markseen" android:visible="false"></item>
 
 </menu>

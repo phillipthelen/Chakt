@@ -5,7 +5,7 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
-    <item
+    <item android:id="@+id/markseen" android:showAsAction="never" android:title="@string/markseen" android:visible="false"></item><item
         android:id="@+id/watchlist"
         android:icon="@drawable/ic_watchlist"
         android:title="@string/watchlist"
@@ -15,6 +15,7 @@
         android:icon="@drawable/ic_accept"
         android:title="@string/checkin"
         android:showAsAction="ifRoom|withText"/>
+    
     
 
 </menu>
