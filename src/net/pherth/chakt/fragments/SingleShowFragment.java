@@ -142,6 +142,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 			spawnWrongAuthDialog();
 		}
 		displayDetails();
+		displayEpisodes();
 		if(show.progress == null) {
 			List<TvShow> shows;
 			try {
@@ -152,7 +153,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 				return;
 			} catch(IndexOutOfBoundsException e) {
 				setIndeterminateProgress(false);
-				displayEpisodes();
+				displayProgress();
 				return;
 			}
 			if(shows.size() > 0) {
@@ -161,7 +162,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 				setUnseen();
 			}
 		}
-		displayEpisodes();
+		displayProgress();
 		setIndeterminateProgress(false);
 	}
 	
@@ -191,6 +192,8 @@ public class SingleShowFragment extends SingleBaseFragment {
 		.cacheOnDisc()
 		.build();
 		loader.displayImage(show.images.fanart, headerimage, options);
+		
+		
 	}
 		
 	@UiThread
@@ -202,13 +205,20 @@ public class SingleShowFragment extends SingleBaseFragment {
 	void displayEpisodes() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		
+		int endval = show.seasons.size();
+		int episodecount = 0;
 		if(show.seasons.get(show.seasons.size()-1).season == 0) {
 			seasonvalue.setText(String.valueOf(show.seasons.size()-1));
+			endval = endval - 1;
     	} else {
 			seasonvalue.setText(String.valueOf(show.seasons.size()));
     	}
 		
-        episodevalue.setText(String.valueOf(show.progress.aired));
+		for(int i = 0; i < endval ; i++) {
+			episodecount = episodecount + show.seasons.get(i).episodes.episodes.size();
+		}
+		
+		episodevalue.setText(String.valueOf(episodecount));
 		
 		if(!sharedPref.getBoolean("show_specials", true)) {
         	//if the season number is 0, it indeed is the specials "season"
@@ -226,8 +236,11 @@ public class SingleShowFragment extends SingleBaseFragment {
 			}
 		}
 
-        
 		seasonlist.requestLayout();
+	}
+	
+	@UiThread
+	void displayProgress() {
 		progressBar.setProgress(show.progress.percentage);
 		progresstext.setText(show.progress.completed + "/" + show.progress.aired);
 	}
