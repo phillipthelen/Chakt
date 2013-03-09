@@ -128,6 +128,7 @@ public class TraktWrapper extends ServiceManager{
 	public String handleError(TraktException e, FragmentActivity activity) {
 		System.out.println(e.getMessage());
 		System.out.println(e.getResponse());
+		System.out.println(e.getUrl());
 		if(e.getCause().getMessage().equals("checkinfailed")) {
 			return e.getMessage();
 		}

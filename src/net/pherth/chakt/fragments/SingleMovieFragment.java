@@ -4,6 +4,7 @@ import net.pherth.chakt.MainActivity_;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
+import net.pherth.chakt.SlideInBitmapDisplayer;
 import net.pherth.chakt.TraktWrapper;
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,7 +74,7 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		ImageLoader loader = ImageLoader.getInstance();
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.showStubImage(R.drawable.placeholder)
+		.displayer(new SlideInBitmapDisplayer(600, getActivity()))
 		.cacheInMemory()
 		.cacheOnDisc()
 		.build();

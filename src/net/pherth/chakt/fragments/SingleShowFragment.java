@@ -8,6 +8,7 @@ import net.pherth.chakt.MainActivity_;
 import net.pherth.chakt.PreferencesActivity_;
 import net.pherth.chakt.R;
 import net.pherth.chakt.SingleEpisodeActivity_;
+import net.pherth.chakt.SlideInBitmapDisplayer;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.ShowSeasonsAdapter;
 import android.app.AlertDialog;
@@ -187,7 +188,7 @@ public class SingleShowFragment extends SingleBaseFragment {
 		ImageLoader loader = ImageLoader.getInstance();
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.showStubImage(R.drawable.placeholder)
+		.displayer(new SlideInBitmapDisplayer(600, getActivity()))
 		.cacheInMemory()
 		.cacheOnDisc()
 		.build();
