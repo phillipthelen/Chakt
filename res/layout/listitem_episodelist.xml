@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listitemlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingRight="16dp"
+    android:minHeight="48dp" >
+
+    <TextView
+        android:id="@+id/subinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/title"
+        android:layout_below="@+id/title"
+        android:gravity="center_vertical"
+        android:textColor="#222222"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_marginLeft="16dp"
+        android:paddingTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/posterimage"
+        android:gravity="center_vertical"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/contextbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/abs__spinner_ab_default_holo_light"
+        android:visibility="visible"
+        android:focusable="false"
+        android:clickable="false" />
+
+    <ImageView
+        android:id="@+id/posterimage"
+        android:layout_width="106dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
