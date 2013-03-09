@@ -10,6 +10,8 @@ import net.pherth.chakt.TraktInterface;
 import net.pherth.chakt.TraktWrapper;
 import net.pherth.chakt.adapter.ShowProgressAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -86,8 +88,14 @@ public class ShowProgressFragment extends TraktFragment implements TraktInterfac
 	@UiThread
 	void notifyDataset(List<TvShow> shows) {
 		adapter.clear();
-		if (android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.HONEYCOMB) {
-			adapter.addAll(shows);
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		if(sharedPref.getBoolean("hide_finished_shows", true)) {
+			for(TvShow show : shows) {
+				if(show.next_episode) {
+					adapter.add(show);
+				}
+				
+			}
 		} else {
 			for(TvShow show : shows) {
 				adapter.add(show);
