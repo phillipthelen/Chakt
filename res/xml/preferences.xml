@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceCategory android:title="@string/authentification">
-        <EditTextPreference android:title="@string/username" android:key="username"/>
+    <PreferenceCategory
+        android:title="@string/authentification">
+        <EditTextPreference
+            android:title="@string/username"
+            android:key="username"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/sorting">
-        <ListPreference android:title="@string/showprogress" android:entries="@array/progresssortinglabels" android:entryValues="@array/progresssortingvalues" android:key="progresssorting" android:enabled="false"/>
-        <ListPreference android:title="@string/watchlist" android:entries="@array/watchlistsortinglabels" android:entryValues="@array/watchlistsortingvalues" android:key="watchlistsorting" android:enabled="false"/>
+    <PreferenceCategory
+        android:title="@string/sorting">
+        <ListPreference
+            android:title="@string/showprogress"
+            android:entries="@array/progresssortinglabels"
+            android:entryValues="@array/progresssortingvalues"
+            android:key="progresssorting"
+            android:enabled="false"/>
+        <ListPreference
+            android:title="@string/watchlist"
+            android:entries="@array/watchlistsortinglabels"
+            android:entryValues="@array/watchlistsortingvalues"
+            android:key="watchlistsorting"
+            android:enabled="false"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/behaviour">
-        <CheckBoxPreference android:summaryOn="@string/confirmon" android:title="@string/confirmationdialog" android:summaryOff="@string/confirmoff" android:key="confirm" android:defaultValue="true" android:enabled="false"/>
-        <CheckBoxPreference android:defaultValue="true" android:enabled="true" android:title="@string/show_specials" android:summaryOn="@string/show_specials_label" android:summaryOff="@string/hide_specials" android:key="show_specials"/>
-         <CheckBoxPreference android:defaultValue="true" android:enabled="true" android:title="@string/hide_finished_shows" android:summaryOn="@string/show_specials" android:summaryOff="@string/hide_finished_shows_true" android:key="hide_finished_shows"/>
+    <PreferenceCategory
+        android:title="@string/behaviour">
+        <CheckBoxPreference
+            android:summaryOn="@string/confirmon"
+            android:title="@string/confirmationdialog"
+            android:summaryOff="@string/confirmoff"
+            android:key="confirm"
+            android:defaultValue="true"
+            android:enabled="false"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:title="@string/show_specials"
+            android:summaryOn="@string/show_specials_label"
+            android:summaryOff="@string/hide_specials"
+            android:key="show_specials"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:title="@string/hide_finished_shows"
+            android:summaryOn="@string/show_specials"
+            android:summaryOff="@string/hide_finished_shows_true"
+            android:key="hide_finished_shows"/>
+        <CheckBoxPreference android:key="show_posters" android:title="@string/show_posters" android:defaultValue="false"/>
+        
         </PreferenceCategory>
     
 
