@@ -28,6 +28,7 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.TvShow;
+import com.jakewharton.trakt.enumerations.ExtendedParam;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
@@ -74,7 +75,7 @@ public class ShowProgressFragment extends TraktFragment implements TraktInterfac
 		setIndeterminateProgress(true);
 		List<TvShow> shows;
 		try {
-			shows = (ArrayList<TvShow>) tw.userService().progressWatched(tw.username).fire();
+			shows = (ArrayList<TvShow>) tw.userService().progressWatched(tw.username).extended(ExtendedParam.Normal).fire();
     	} catch (TraktException e) {
     		displayCrouton(tw.handleError(e, getActivity()), Style.ALERT);
     		setIndeterminateProgress(false);

@@ -3,6 +3,8 @@ package net.pherth.chakt.adapter;
 import net.pherth.chakt.R;
 import net.pherth.chakt.TraktWrapper;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,6 +24,8 @@ import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.MediaBase;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.TvShow;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.taig.pmc.PopupMenuCompat;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -35,12 +40,25 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 	
 	TraktWrapper tw;
 	FragmentActivity activity;
-
+	Boolean showPosters;
+	ImageLoader loader;
+	DisplayImageOptions imageOptions;
+	
 	public ShowProgressAdapter(Context context) {
 	    super(context, R.layout.fragment_baselist);
 	    inflater = LayoutInflater.from(context);
 	    this.cxt = context;
 	    tw = TraktWrapper.getInstance();
+	    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+	    showPosters = sharedPref.getBoolean("show_posters", false);
+	    if(showPosters) {
+		    loader = ImageLoader.getInstance();
+			
+			imageOptions = new DisplayImageOptions.Builder()
+			.cacheInMemory()
+			.cacheOnDisc()
+			.build();
+	    }
 	}
 	
 	public void init(FragmentActivity activity) {
@@ -59,6 +77,7 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 			holder.progressLabel = (TextView) convertView.findViewById(R.id.progressLabel);
 			holder.contextbutton = (ImageButton) convertView.findViewById(R.id.contextbutton);
 			holder.contextbutton.setFocusable(false);
+			holder.posterimage = (ImageView) convertView.findViewById(R.id.posterimage);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -99,6 +118,11 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 			
 		});
 		
+		
+		if(showPosters) {
+			loader.displayImage(show.images.getPoster138(), holder.posterimage, imageOptions);
+			holder.posterimage.setVisibility(View.VISIBLE);
+		}
 		holder.title.setText(show.title);
 		holder.progress.setProgress(show.progress.percentage);
 		holder.progressLabel.setText(show.progress.completed + "/" + show.progress.aired);
@@ -155,6 +179,7 @@ public class ShowProgressAdapter extends ArrayAdapter<TvShow>  implements Sticky
 		ProgressBar progress;
 		TextView progressLabel;
 		ImageButton contextbutton;
+		ImageView posterimage;
 	}
 	
 	@Background
