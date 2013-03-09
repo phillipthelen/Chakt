@@ -3,6 +3,8 @@ package net.pherth.chakt.adapter;
 import net.pherth.chakt.R;
 import net.pherth.chakt.TraktWrapper;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
@@ -21,6 +24,8 @@ import com.jakewharton.trakt.TraktException;
 import com.jakewharton.trakt.entities.TvEntity;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.taig.pmc.PopupMenuCompat;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -37,12 +42,25 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity> {
 	
 	TraktWrapper tw;
 	FragmentActivity activity;
+	Boolean showPosters;
+	ImageLoader loader;
+	DisplayImageOptions imageOptions;
 	
 	public EpisodelistAdapter(Context context) {
 	    super(context, R.layout.fragment_baselist);
 	    inflater = LayoutInflater.from(context);
 	    this.cxt = context;
 	    this.tw = TraktWrapper.getInstance();
+	    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+	    showPosters = sharedPref.getBoolean("show_posters", false);
+	    if(showPosters) {
+		    loader = ImageLoader.getInstance();
+			
+			imageOptions = new DisplayImageOptions.Builder()
+			.cacheInMemory()
+			.cacheOnDisc()
+			.build();
+	    }
 	}
 	
 	public void init(FragmentActivity activity, String type) {
@@ -56,11 +74,12 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity> {
 
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.listitem_baselist, parent, false);
+			convertView = inflater.inflate(R.layout.listitem_episodelist, parent, false);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.subinfo = (TextView) convertView.findViewById(R.id.subinfo);
 			holder.contextbutton = (ImageButton) convertView.findViewById(R.id.contextbutton);
 			holder.contextbutton.setFocusable(false);
+			holder.posterimage = (ImageView) convertView.findViewById(R.id.posterimage);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -100,7 +119,10 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity> {
 			
 		});
 		
-		
+		if(showPosters) {
+			loader.displayImage(entity.episode.images.getScreen218(), holder.posterimage, imageOptions);
+			holder.posterimage.setVisibility(View.VISIBLE);
+		}
 		holder.title.setText(entity.episode.title);
 		holder.subinfo.setText(entity.show.title);
 		
@@ -111,6 +133,7 @@ public class EpisodelistAdapter extends ArrayAdapter<TvEntity> {
 		TextView title;
 		TextView subinfo;
 		ImageButton contextbutton;
+		ImageView posterimage;
 	}
 	
 	@Background
