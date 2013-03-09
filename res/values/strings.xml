@@ -73,4 +73,8 @@
     <string name="show_specials">Display specials in Show View</string>
     <string name="season">Season</string>
     <string name="episodes">Episodes</string>
+    <string name="markseen">mark as seen</string>
+    <string name="hide_finished_shows_true">Finished shows are hidden from progressview</string>
+    <string name="hide_finished_shows_false">Finished shows are shown in progressview</string>
+    <string name="hide_finished_shows">Hide finished shows</string>
 </resources>

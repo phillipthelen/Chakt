@@ -10,7 +10,8 @@
     <PreferenceCategory android:title="@string/behaviour">
         <CheckBoxPreference android:summaryOn="@string/confirmon" android:title="@string/confirmationdialog" android:summaryOff="@string/confirmoff" android:key="confirm" android:defaultValue="true" android:enabled="false"/>
         <CheckBoxPreference android:defaultValue="true" android:enabled="true" android:title="@string/show_specials" android:summaryOn="@string/show_specials_label" android:summaryOff="@string/hide_specials" android:key="show_specials"/>
-    </PreferenceCategory>
+         <CheckBoxPreference android:defaultValue="true" android:enabled="true" android:title="@string/hide_finished_shows" android:summaryOn="@string/show_specials" android:summaryOff="@string/hide_finished_shows_true" android:key="hide_finished_shows"/>
+        </PreferenceCategory>
     
 
 </PreferenceScreen>
