@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +88,12 @@ public class SingleEpisodeFragment extends SingleBaseFragment {
 		.cacheOnDisc()
 		.build();
 		
-		loader.displayImage(show.images.fanart, headerimage, options);
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
+		if(display.getWidth() > 940) {
+			loader.displayImage(show.images.fanart, headerimage, options);
+		} else {
+			loader.displayImage(show.images.getFanart940(), headerimage, options);
+		}
 		
 		loader.displayImage(episode.images.screen, episodeimage, options);
 		

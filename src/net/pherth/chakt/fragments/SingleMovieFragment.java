@@ -6,14 +6,17 @@ import net.pherth.chakt.R;
 import net.pherth.chakt.SingleMovieActivity_;
 import net.pherth.chakt.SlideInBitmapDisplayer;
 import net.pherth.chakt.TraktWrapper;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,14 +77,17 @@ public class SingleMovieFragment extends SingleBaseFragment {
 		ImageLoader loader = ImageLoader.getInstance();
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.displayer(new SlideInBitmapDisplayer(600, getActivity()))
+		.displayer(new SlideInBitmapDisplayer(500, getActivity()))
 		.cacheInMemory()
 		.cacheOnDisc()
 		.build();
 		
-		Log.d("SingleMovieFragment", movie.images.fanart);
-		loader.displayImage(movie.images.fanart, headerimage, options);
-		
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
+		if(display.getWidth() > 940) {
+			loader.displayImage(movie.images.fanart, headerimage, options);
+		} else {
+			loader.displayImage(movie.images.getFanart940(), headerimage, options);
+		}
 		loadDetails();
 	}
 	

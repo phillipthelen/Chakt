@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,20 @@ public class SingleShowFragment extends SingleBaseFragment {
 	@AfterViews
 	void loadData() {
 		titletext.setText(show.title);
+		ImageLoader loader = ImageLoader.getInstance();
+		
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+		.displayer(new SlideInBitmapDisplayer(600, getActivity()))
+		.cacheInMemory()
+		.cacheOnDisc()
+		.build();
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
+		if(display.getWidth() > 940) {
+			loader.displayImage(show.images.fanart, headerimage, options);
+		} else {
+			loader.displayImage(show.images.getFanart940(), headerimage, options);
+		}
+		
 		if(show.progress == null) {
 			displayDetails();
 		}
@@ -184,17 +199,6 @@ public class SingleShowFragment extends SingleBaseFragment {
 		runtimevalue.setText(show.runtime.toString() + " " + getString(R.string.minutes));
 		ratingsvalue.setText(show.ratings.percentage + "%");
 		descriptiontext.setText(show.overview);
-		
-		ImageLoader loader = ImageLoader.getInstance();
-		
-		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.displayer(new SlideInBitmapDisplayer(600, getActivity()))
-		.cacheInMemory()
-		.cacheOnDisc()
-		.build();
-		loader.displayImage(show.images.fanart, headerimage, options);
-		
-		
 	}
 		
 	@UiThread
