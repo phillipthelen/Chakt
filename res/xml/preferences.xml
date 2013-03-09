@@ -41,7 +41,7 @@
             android:defaultValue="true"
             android:enabled="true"
             android:title="@string/hide_finished_shows"
-            android:summaryOn="@string/show_specials"
+            android:summaryOn="@string/hide_finished_shows_false"
             android:summaryOff="@string/hide_finished_shows_true"
             android:key="hide_finished_shows"/>
         <CheckBoxPreference android:key="show_posters" android:title="@string/show_posters" android:defaultValue="false"/>
