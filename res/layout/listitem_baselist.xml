@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+    android:id="@+id/listitemlayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:minHeight="48dp" >
 
+    
+    
     <TextView
         android:id="@+id/subinfo"
         android:layout_width="wrap_content"
@@ -19,10 +20,12 @@
 
     <TextView
         android:id="@+id/title"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/posterimage"
         android:gravity="center_vertical"
         android:textColor="#000000"
         android:textSize="17sp"
@@ -39,5 +42,13 @@
         android:visibility="visible"
         android:focusable="false"
         android:clickable="false" />
+
+    <ImageView
+        android:id="@+id/posterimage"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

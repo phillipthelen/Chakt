@@ -5,6 +5,8 @@ import net.pherth.chakt.SingleEpisodeActivity_;
 import net.pherth.chakt.TraktWrapper;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +34,9 @@ import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.Response;
 import com.jakewharton.trakt.entities.TvShow;
 import com.jakewharton.trakt.entities.TvShowEpisode;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.taig.pmc.PopupMenuCompat;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -47,12 +53,25 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase> {
 	
 	TraktWrapper tw;
 	FragmentActivity activity;
+	Boolean showPosters;
+	ImageLoader loader;
+	DisplayImageOptions imageOptions;
 	
 	public BaselistAdapter(Context context) {
 	    super(context, R.layout.fragment_baselist);
 	    inflater = LayoutInflater.from(context);
 	    this.cxt = context;
 	    this.tw = TraktWrapper.getInstance();
+	    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+	    showPosters = sharedPref.getBoolean("show_posters", false);
+	    if(showPosters) {
+		    loader = ImageLoader.getInstance();
+			
+			imageOptions = new DisplayImageOptions.Builder()
+			.cacheInMemory()
+			.cacheOnDisc()
+			.build();
+	    }
 	}
 	
 	public void init(FragmentActivity activity, String type) {
@@ -71,6 +90,7 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase> {
 			holder.subinfo = (TextView) convertView.findViewById(R.id.subinfo);
 			holder.contextbutton = (ImageButton) convertView.findViewById(R.id.contextbutton);
 			holder.contextbutton.setFocusable(false);
+			holder.posterimage = (ImageView) convertView.findViewById(R.id.posterimage);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -110,7 +130,10 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase> {
 			
 		});
 		
-		
+		if(showPosters) {
+			loader.displayImage(entity.images.getPoster138(), holder.posterimage, imageOptions);
+			holder.posterimage.setVisibility(View.VISIBLE);
+		}
 		holder.title.setText(entity.title);
 		holder.subinfo.setText(entity.year.toString());
 		
@@ -121,6 +144,7 @@ public class BaselistAdapter extends ArrayAdapter<MediaBase> {
 		TextView title;
 		TextView subinfo;
 		ImageButton contextbutton;
+		ImageView posterimage;
 	}
 	
 	@Background
