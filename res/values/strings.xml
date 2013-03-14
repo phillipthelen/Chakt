@@ -74,8 +74,8 @@
     <string name="season">Season</string>
     <string name="episodes">Episodes</string>
     <string name="markseen">mark as seen</string>
-    <string name="hide_finished_shows_true">Finished shows are hidden from progressview</string>
-    <string name="hide_finished_shows_false">Finished shows are shown in progressview</string>
+    <string name="hide_finished_shows_true">Finished shows are hidden from progress view</string>
+    <string name="hide_finished_shows_false">Finished shows are shown in progress view</string>
     <string name="hide_finished_shows">Hide finished shows</string>
     <string name="show_posters">Show posters in lists</string>
 </resources>
